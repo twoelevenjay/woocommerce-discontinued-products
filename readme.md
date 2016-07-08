@@ -38,7 +38,7 @@ WooCommerce Discontinued Products requires the most current version of WooCommer
 * [WooCommerce](https://wordpress.org/plugins/woocommerce/) from [Automattic](https://automattic.com/).
 
 ### Contribution
-All contributions welcome. Please read the [CONTRIBUTING](https://github.com/twoelevenjay/woocommerce-discontinued-products/CONTRIBUTING.md) doc for more details.
+All contributions welcome. Please read the [CONTRIBUTING](https://github.com/twoelevenjay/woocommerce-discontinued-products/blob/master/CONTRIBUTING.md) doc for more details.
 
 ## Installation
 
