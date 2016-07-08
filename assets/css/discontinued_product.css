@@ -1,0 +1,4 @@
+#woocommerce-product-data ul.wc-tabs li.discontinued_product_tab a:before {
+    font-family: WooCommerce!important;
+    content: "\e006";
+}
