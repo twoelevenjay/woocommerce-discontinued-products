@@ -195,7 +195,7 @@ if ( ! class_exists( 'WC_Class_Discontinued_Products' ) ) {
 		 */
 		public function exclude_discontinued_products( $query ) {
 
-			if ( ! $this->doing_dp_ids && $query->is_main_query() && ( $query->get( 'post_type' ) === 'product' || is_search() ) ) {
+			if ( ! $this->doing_dp_ids && $query->is_main_query() && ! is_single() && ( $query->get( 'post_type' ) === 'product' || is_search() ) ) {
 				$query->set( 'post__not_in', $this->discontinued_prod );
 			}
 		}

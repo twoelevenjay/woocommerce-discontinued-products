@@ -37,8 +37,10 @@ if ( ! function_exists( 'woocommerce_alternative_products' ) ) {
 		global $post;
 		$alt_products = get_post_meta( $post->ID, '_alt_products', true );
 		$alt_products = is_array( $alt_products ) ? $alt_products : array();
+		$text = _( 'This product has been discontinued.' );
+		$notice = empty( $alt_products ) ? $text : $text . ' ' . _( 'You may be interested in:' );
 		?>
-		<h4>This product has been discontinued. You may be interested in:</h4>
+		<h4><?php echo esc_html( $notice ); ?></h4>
 		<?php
 		foreach ( $alt_products as $alt_product ) {
 			?>
