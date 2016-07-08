@@ -115,7 +115,7 @@ if ( ! class_exists( 'WC_Class_Discontinued_Products' ) ) {
 						}
 
 						echo esc_attr( wp_json_encode( $json_ids ) );
-						?>" value="<?php echo esc_attr( implode( ',', array_keys( $json_ids ) ) ); ?>" /> <?php echo esc_html( wc_help_tip( __( 'Any product that is added to this field will generate a button for the add to cart area that will link to the corresponding product.', 'wc_discontinued_products' ) ) ); ?>
+						?>" value="<?php echo esc_attr( implode( ',', array_keys( $json_ids ) ) ); ?>" /> <?php echo wc_help_tip( __( 'Any product that is added to this field will generate a button for the add to cart area that will link to the corresponding product.', 'wc_discontinued_products' ) ); ?>
 					</p>
 				</div>
 			</div>
