@@ -13,12 +13,12 @@ if ( ! function_exists( 'dp_is_discontinued' ) ) {
 	 * Check if product is discontinued.
 	 *
 	 * @since 1.0.0
-	 * @param int $product_id Optional. ID of the product to check.
+	 * @param int|null $product_id Optional. ID of the product to check.
 	 */
 	function dp_is_discontinued( $product_id = null ) {
 
 		global $post;
-		$product_id = $product_id !== null ? $product_id : $post->ID;
+		$product_id      = $product_id !== null ? $product_id : $post->ID;
 		$is_discontinued = get_post_meta( $product_id, '_is_discontinued', true );
 		return $is_discontinued === 'yes';
 	}
@@ -37,8 +37,8 @@ if ( ! function_exists( 'dp_alternative_products' ) ) {
 		global $post;
 		$alt_products = get_post_meta( $post->ID, '_alt_products', true );
 		$alt_products = is_array( $alt_products ) ? $alt_products : array();
-		$text = _( 'This product has been discontinued.' );
-		$notice = empty( $alt_products ) ? $text : $text . ' ' . _( 'You may be interested in:' );
+		$text         = _( 'This product has been discontinued.' );
+		$notice       = empty( $alt_products ) ? $text : $text . ' ' . _( 'You may be interested in:' );
 		?>
 		<h4><?php echo esc_html( $notice ); ?></h4>
 		<?php
