@@ -6,7 +6,7 @@
  * @since 1.0.0
  */
 
-if ( ! function_exists( 'is_discontinued' ) ) {
+if ( ! function_exists( 'dp_is_discontinued' ) ) {
 
 	/**
 	 * Is discontiued.
@@ -15,7 +15,7 @@ if ( ! function_exists( 'is_discontinued' ) ) {
 	 * @since 1.0.0
 	 * @param int $product_id Optional. ID of the product to check.
 	 */
-	function is_discontinued( $product_id = null ) {
+	function dp_is_discontinued( $product_id = null ) {
 
 		global $post;
 		$product_id = $product_id !== null ? $product_id : $post->ID;
@@ -24,7 +24,7 @@ if ( ! function_exists( 'is_discontinued' ) ) {
 	}
 }
 
-if ( ! function_exists( 'woocommerce_alternative_products' ) ) {
+if ( ! function_exists( 'dp_alternative_products' ) ) {
 
 	/**
 	 * Alternative Products.
@@ -32,7 +32,7 @@ if ( ! function_exists( 'woocommerce_alternative_products' ) ) {
 	 *
 	 * @since 1.0.0
 	 */
-	function woocommerce_alternative_products() {
+	function dp_alternative_products() {
 
 		global $post;
 		$alt_products = get_post_meta( $post->ID, '_alt_products', true );

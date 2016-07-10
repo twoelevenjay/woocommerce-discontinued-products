@@ -147,14 +147,14 @@ if ( ! class_exists( 'WC_Class_Discontinued_Products' ) ) {
 		 */
 		public static function remove_add_to_cart() {
 
-			if ( is_discontinued() ) {
+			if ( dp_is_discontinued() ) {
 				remove_all_actions( 'woocommerce_single_product_summary' );
 				add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
 				add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_rating', 10 );
 				add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20 );
 				add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
 				add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_sharing', 50 );
-				add_action( 'woocommerce_single_product_summary', 'woocommerce_alternative_products', 60 );
+				add_action( 'woocommerce_single_product_summary', 'dp_alternative_products', 60 );
 			}
 		}
 
