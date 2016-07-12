@@ -30,11 +30,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		}
 
 		/**
-		 * Localisation
-		 */
-		load_plugin_textdomain( 'wc_discontinued_products', false, dirname( plugin_basename( __FILE__ ) ) . '/' );
-
-		/**
 		 * The main WooCommerce Discontinued Products Class.
 		 * Check if WooCommerce is active, load functions and other files.
 		 *
@@ -83,6 +78,10 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			 */
 			public function plugins_loaded() {
 
+				/**
+				 * Localisation
+				 */
+				load_plugin_textdomain( 'woocommerce-discontinued-products', false, dirname( plugin_basename( __FILE__ ) ) . '/' );
 			}
 
 			/**

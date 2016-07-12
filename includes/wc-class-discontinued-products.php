@@ -73,7 +73,7 @@ if ( ! class_exists( 'WC_Class_Discontinued_Products' ) ) {
 		public function add_discontinued_product_tab() {
 
 			?>
-			<li class="discontinued_product_tab"><a href="#discontinued_product_tab_data"><?php esc_html_e( 'Discontinued Products', 'wc_discontinued_products' ); ?></a></li>
+			<li class="discontinued_product_tab"><a href="#discontinued_product_tab_data"><?php esc_html_e( 'Discontinued Products', 'woocommerce-discontinued-products' ); ?></a></li>
 			<?php
 		}
 
@@ -94,7 +94,7 @@ if ( ! class_exists( 'WC_Class_Discontinued_Products' ) ) {
 								'id'			=> '_is_discontinued',
 								'wrapper_class' => '',
 								'label'		 => __( 'Is Discontinued', 'woocommerce' ),
-								'description'   => __( 'Check if this product is discontinued', 'wc_discontinued_products' ),
+								'description'   => __( 'Check if this product is discontinued', 'woocommerce-discontinued-products' ),
 							)
 						);
 					?>
@@ -117,7 +117,7 @@ if ( ! class_exists( 'WC_Class_Discontinued_Products' ) ) {
 						echo esc_attr( wp_json_encode( $json_ids ) );
 						?>" value="<?php echo esc_attr( implode( ',', array_keys( $json_ids ) ) ); ?>" /> <?php
 						// @codingStandardsIgnoreStart
-						echo wc_help_tip( __( 'Any product that is added to this field will generate a button for the add to cart area that will link to the corresponding product.', 'wc_discontinued_products' ) );
+						echo wc_help_tip( __( 'Any product that is added to this field will generate a button for the add to cart area that will link to the corresponding product.', 'woocommerce-discontinued-products' ) );
 						// @codingStandardsIgnoreEnd
 						?>
 					</p>
