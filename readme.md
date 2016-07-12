@@ -1,4 +1,4 @@
-# WooCommerce Discontinued Products
+# Discontinued Products
 [![Build Status](https://travis-ci.org/twoelevenjay/woocommerce-discontinued-products.svg?branch=master)](https://travis-ci.org/twoelevenjay/woocommerce-discontinued-products)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/twoelevenjay/woocommerce-discontinued-products/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/twoelevenjay/woocommerce-discontinued-products/?branch=master)  
 **Contributors:**         twoelevenjay  
