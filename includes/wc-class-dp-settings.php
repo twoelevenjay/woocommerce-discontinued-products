@@ -51,29 +51,29 @@ if ( ! class_exists( 'WC_Class_DP_Settings' ) ) {
 				$settings[] = array( 'name' => __( 'Discontinued Products', 'woocommerce-discontinued-products' ), 'type' => 'title', 'desc' => __( 'The following options are global settings for Discontinued Products', 'woocommerce-discontinued-products' ), 'id' => 'discontinued_products' );
 				$settings[] = array(
 					'name'     => __( 'Hide from shop', 'woocommerce-discontinued-products' ),
-					'id'       => 'hide_from_shop',
+					'id'       => 'dc_hide_from_shop',
 					'type'     => 'checkbox',
 					'css'      => 'min-width:300px;',
 					'desc'     => __( 'Hide on product archive pages including the shop page by default.', 'woocommerce-discontinued-products' ),
 				);
 				$settings[] = array(
 					'name'     => __( 'Hide from shop', 'woocommerce-discontinued-products' ),
-					'id'       => 'hide_from_search',
+					'id'       => 'dc_hide_from_search',
 					'type'     => 'checkbox',
 					'css'      => 'min-width:300px;',
 					'desc'     => __( 'Hide from the product search results page by default.', 'text-domain' ),
 				);
 				$settings[] = array(
-					'name'     => __( 'Discontinued text', 'text-domain' ),
+					'name'     => __( 'Discontinued product text', 'text-domain' ),
 					'desc_tip' => __( 'This can be overridden on a per product basis the default is: "This product has been discontinued.".', 'woocommerce-discontinued-products' ),
-					'id'       => 'discontinued_text',
+					'id'       => 'dc_discontinued_text',
 					'type'     => 'text',
 					'desc'     => __( 'Enter text to be shown when product is discontinued.', 'woocommerce-discontinued-products' ),
 				);
 				$settings[] = array(
-					'name'     => __( 'Discontinued text', 'text-domain' ),
+					'name'     => __( 'Alternative product text', 'text-domain' ),
 					'desc_tip' => __( 'This can be overridden on a per product basis the default is: "You may be interested in:".', 'woocommerce-discontinued-products' ),
-					'id'       => 'discontinued_alt_text',
+					'id'       => 'dc_alt_text',
 					'type'     => 'text',
 					'desc'     => __( 'Enter text to be shown when alternative product are suggested.', 'woocommerce-discontinued-products' ),
 				);
