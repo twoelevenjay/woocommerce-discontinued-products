@@ -20,11 +20,13 @@ WooCommerce Discontinued Products requires the most current version of WooCommer
 
 ### Features:
 
-* Flag a product as discontinued
-* Remove add to cart and related functionality like add to wishlist
-* Hide product from shop, archive, and search pages
-* Keep discontinued product pages live for SEO purposes
-* Choose one or more products to suggest as alternatives to discontinued products
+* Flag a product as discontinued.
+* Remove add to cart and related functionality like add to wish list.
+* Optionally hide product from shop, archive, and / or search pages, with the ability to override this on a per product bases.
+* Keep discontinued product pages live for SEO purposes.
+* Set text to show on discontinued products globally or on a per product basis.
+* Choose one or more products to suggest as alternatives to discontinued products.
+* Set text for alternative products globally or on a per product basis.
 
 ### Translation
 * None yet, but all are welcome
