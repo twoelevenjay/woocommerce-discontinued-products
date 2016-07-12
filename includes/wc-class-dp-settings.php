@@ -41,8 +41,8 @@ if ( ! class_exists( 'WC_Class_DP_Settings' ) ) {
 		 * Add Discontinued Products settings.
 		 *
 		 * @since 1.1.0
-		 * @param array $settings Array of "Product" tab sections.
-		 * @param array $current_section Array of "Product" tab sections.
+		 * @param array  $settings Array of "Product" tab settings.
+		 * @param string $current_section current section ID.
 		 */
 		public function add_settings_section_fields( $settings, $current_section ) {
 
@@ -55,13 +55,15 @@ if ( ! class_exists( 'WC_Class_DP_Settings' ) ) {
 					'type'     => 'checkbox',
 					'css'      => 'min-width:300px;',
 					'desc'     => __( 'Hide on product archive pages including the shop page by default.', 'woocommerce-discontinued-products' ),
+					'default'  => 'yes',
 				);
 				$settings[] = array(
-					'name'     => __( 'Hide from shop', 'woocommerce-discontinued-products' ),
+					'name'     => __( 'Hide from search', 'woocommerce-discontinued-products' ),
 					'id'       => 'dc_hide_from_search',
 					'type'     => 'checkbox',
 					'css'      => 'min-width:300px;',
 					'desc'     => __( 'Hide from the product search results page by default.', 'text-domain' ),
+					'default'  => 'yes',
 				);
 				$settings[] = array(
 					'name'     => __( 'Discontinued product text', 'text-domain' ),

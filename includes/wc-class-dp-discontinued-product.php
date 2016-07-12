@@ -15,13 +15,22 @@ if ( ! class_exists( 'WC_Class_DP_Discontinued_Product' ) ) {
 	class WC_Class_DP_Discontinued_Product {
 
 		/**
-		 * Array of discontinued product IDs.
+		 * Array of discontinued product IDs to hide from shop.
 		 *
-		 * @since 1.0.0
+		 * @since 1.1.0
 		 *
 		 * @var array
 		 */
-		public $discontinued_prod;
+		public $hide_from_shop;
+
+		/**
+		 * Array of discontinued product IDs to hide from search.
+		 *
+		 * @since 1.1.0
+		 *
+		 * @var array
+		 */
+		public $hide_from_search;
 
 		/**
 		 * Set to true during the discontinued product IDs query.
@@ -38,14 +47,18 @@ if ( ! class_exists( 'WC_Class_DP_Discontinued_Product' ) ) {
 		 * @since 1.0.0
 		 */
 		public function __construct() {
+
 			add_action( 'woocommerce_product_write_panel_tabs', array( $this, 'add_discontinued_product_tab' ) );
 			add_action( 'woocommerce_product_write_panels', array( $this, 'add_discontinued_product_panel' ) );
 			add_action( 'woocommerce_process_product_meta', array( $this, 'save' ) );
 			add_action( 'template_redirect', array( $this, 'remove_add_to_cart' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-			add_action( 'save_post', array( $this, 'set_discontinued_products' ) );
+			add_action( 'save_post', array( $this, 'set_discontinued_products_to_hide' ) );
+			add_action( 'update_option_dc_hide_from_shop', array( $this, 'set_discontinued_products_to_hide' ) );
+			add_action( 'update_option_dc_hide_from_search', array( $this, 'set_discontinued_products_to_hide' ) );
 			add_action( 'pre_get_posts', array( $this, 'exclude_discontinued_products' ) );
-			$this->discontinued_prod = get_transient( 'discontinued_products' );
+			$this->hide_from_shop = get_transient( 'dp_hide_from_shop' );
+			$this->hide_from_search = get_transient( 'dp_hide_from_search' );
 			$this->doing_dp_ids = false;
 		}
 
@@ -97,6 +110,16 @@ if ( ! class_exists( 'WC_Class_DP_Discontinued_Product' ) ) {
 								'description'   => __( 'Check if this product is discontinued', 'woocommerce-discontinued-products' ),
 							)
 						);
+						$placeholder = get_option( 'dc_discontinued_text' );
+						woocommerce_wp_text_input(
+							array(
+								'id'          => '_discontinued_product_text',
+								'label'       => __( 'Display text', 'woocommerce-discontinued-products' ),
+								'placeholder' => $placeholder,
+								'desc_tip'    => 'true',
+								'description' => __( 'Enter text to be shown when this product is discontinued', 'woocommerce-discontinued-products' ),
+							)
+						);
 					?>
 				</div>
 
@@ -121,6 +144,49 @@ if ( ! class_exists( 'WC_Class_DP_Discontinued_Product' ) ) {
 						// @codingStandardsIgnoreEnd
 						?>
 					</p>
+					<?php
+						$placeholder = get_option( 'dc_alt_text' );
+						woocommerce_wp_text_input(
+							array(
+								'id'          => '_alt_product_text',
+								'label'       => __( 'Display text', 'woocommerce-discontinued-products' ),
+								'placeholder' => $placeholder,
+								'desc_tip'    => 'true',
+								'description' => __( 'Enter text to be shown when alternative product are suggested.', 'woocommerce-discontinued-products' ),
+							)
+						);
+					?>
+				</div>
+
+				<div class="options_group">
+					<?php
+						woocommerce_wp_select(
+							array(
+								'id'          => '_hide_from_shop',
+								'label'       => __( 'Hide on shop / archive.', 'woocommerce-discontinued-products' ),
+								'desc_tip'    => 'true',
+								'description' => __( 'Hide from shop / archive pages.', 'woocommerce-discontinued-products' ),
+								'options'     => array(
+									''     => __( 'Default', 'woocommerce-discontinued-products' ),
+									'hide' => __( 'Hide', 'woocommerce-discontinued-products' ),
+									'show' => __( 'Show', 'woocommerce-discontinued-products' ),
+								),
+							)
+						);
+						woocommerce_wp_select(
+							array(
+								'id'          => '_hide_from_search',
+								'label'       => __( 'Hide on search.', 'woocommerce-discontinued-products' ),
+								'desc_tip'    => 'true',
+								'description' => __( 'Hide from search results.', 'woocommerce-discontinued-products' ),
+								'options'     => array(
+									''     => __( 'Default', 'woocommerce-discontinued-products' ),
+									'hide' => __( 'Hide', 'woocommerce-discontinued-products' ),
+									'show' => __( 'Show', 'woocommerce-discontinued-products' ),
+								),
+							)
+						);
+					?>
 				</div>
 			</div>
 			<?php
@@ -135,8 +201,12 @@ if ( ! class_exists( 'WC_Class_DP_Discontinued_Product' ) ) {
 
 			$is_discontinued = filter_input( INPUT_POST, '_is_discontinued' ) !== null ? 'yes' : 'no';
 			update_post_meta( $post_id, '_is_discontinued', $is_discontinued );
-			$alt_products = filter_input( INPUT_POST, 'alt_products' ) !== null ? array_filter( array_map( 'intval', explode( ',', filter_input( INPUT_POST, 'alt_products' ) ) ) ) : array();
+			update_post_meta( $post_id, '_discontinued_product_text', filter_input( INPUT_POST, '_discontinued_product_text' ) );
+			$alt_products    = filter_input( INPUT_POST, 'alt_products' ) !== null ? array_filter( array_map( 'intval', explode( ',', filter_input( INPUT_POST, 'alt_products' ) ) ) ) : array();
 			update_post_meta( $post_id, '_alt_products', $alt_products );
+			update_post_meta( $post_id, '_alt_product_text', filter_input( INPUT_POST, '_alt_product_text' ) );
+			update_post_meta( $post_id, '_hide_from_shop', filter_input( INPUT_POST, '_hide_from_shop' ) );
+			update_post_meta( $post_id, '_hide_from_search', filter_input( INPUT_POST, '_hide_from_search' ) );
 		}
 
 		/**
@@ -154,7 +224,7 @@ if ( ! class_exists( 'WC_Class_DP_Discontinued_Product' ) ) {
 				add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20 );
 				add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
 				add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_sharing', 50 );
-				add_action( 'woocommerce_single_product_summary', 'dp_alternative_products', 60 );
+				add_action( 'woocommerce_single_product_summary', 'dp_alt_products', 60 );
 			}
 		}
 
@@ -164,26 +234,55 @@ if ( ! class_exists( 'WC_Class_DP_Discontinued_Product' ) ) {
 		 *
 		 * @since 1.0.0
 		 */
-		public function set_discontinued_products() {
+		public function set_discontinued_products_to_hide() {
+
+			$hide_from_shop   = get_option( 'dc_hide_from_shop' );
+			$hide_from_search = get_option( 'dc_hide_from_search' );
+			$ids_hide_shop    = $this->get_product_ids_to_hide( '_hide_from_shop', $hide_from_shop );
+			$ids_hide_search  = $this->get_product_ids_to_hide( '_hide_from_search', $hide_from_search );
+			if ( $ids_hide_shop !== $this->hide_from_shop ) {
+				set_transient( 'dp_hide_from_shop', $ids_hide_shop );
+				$this->hide_from_shop = $ids_hide_shop;
+			}
+			if ( $ids_hide_search !== $this->hide_from_search ) {
+				set_transient( 'dp_hide_from_search', $ids_hide_search );
+				$this->hide_from_search = $ids_hide_search;
+			}
+		}
+
+		/**
+		 * Get product IDs t hide.
+		 * Query discontinued products based settings and return IDs.
+		 *
+		 * @since 1.0.1
+		 * @param string $where_to_hide meta_query key based on where to hide product.
+		 * @param string $option the global setting of whether or not to hide.
+		 */
+		public function get_product_ids_to_hide( $where_to_hide, $option ) {
 
 			$args = array(
-				'post_type' => 'product',
+				'post_type'  => 'product',
 				'meta_query' => array(
 					array(
-						'key'   => '_is_discontinued',
-						'value' => 'yes',
+						'key'     => '_is_discontinued',
+						'value'   => 'yes',
+					),
+					array(
+						'key'     => $where_to_hide,
+						'value'   => 'show',
+						'compare' => '!=',
 					),
 				),
 				'fields' => 'ids',
 			);
-			$this->doing_dp_ids = true;
-			$products = new WP_Query( $args );
-			$this->doing_dp_ids = false;
-			if ( $products->posts !== $this->discontinued_prod ) {
-				set_transient( 'discontinued_products', $products->posts );
-				$this->discontinued_prod;
+			if ( $option === 'no' ) {
+				$args['meta_query'][1]['value']   = 'hide';
+				$args['meta_query'][1]['compare'] = '==';
 			}
-
+			$this->doing_dp_ids = true;
+			$products           = new WP_Query( $args );
+			$this->doing_dp_ids = false;
+			return $products->posts;
 		}
 
 		/**
@@ -195,8 +294,9 @@ if ( ! class_exists( 'WC_Class_DP_Discontinued_Product' ) ) {
 		 */
 		public function exclude_discontinued_products( $query ) {
 
-			if ( ! is_admin() && ! $this->doing_dp_ids && $query->is_main_query() && ! is_single() && ( $query->get( 'post_type' ) === 'product' || is_search() ) ) {
-				$query->set( 'post__not_in', $this->discontinued_prod );
+			$ids_to_hide = $query->get( 'post_type' ) === 'product' && ! is_search() ? $this->hide_from_shop : ( is_search() ? $this->hide_from_search : false );
+			if ( ! is_admin() && ! $this->doing_dp_ids && $query->is_main_query() && ! is_single() && $ids_to_hide ) {
+				$query->set( 'post__not_in', $ids_to_hide );
 			}
 		}
 	}
