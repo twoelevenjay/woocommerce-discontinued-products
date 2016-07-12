@@ -1,17 +1,18 @@
 <?php
 /**
- Plugin Name: WooCommerce Discontinued Products
- Plugin URI: https://github.com/twoelevenjay
- Description: Enables WooCommerce Discontinued Products.
- Author: Leon @ 211J
- Author URI: https://github.com/twoelevenjay
- Version: 1.0.0
+ * Plugin Name: WooCommerce Discontinued Products
+ * Plugin URI: https://wordpress.org/plugins/discontinued-products/
+ * Description: Enables WooCommerce Discontinued Products.
+ * Author: Leon @ 211J
+ * Author URI: http://211j.com/
+ * Version: 1.0.0
+ * Text Domain: woocommerce-discontinued-products
+ * Domain Path: /languages
 
- Copyright: © 2012 Acme Corp (email : developer@acme.com)
- License: GNU General Public License v3.0
- License URI: http://www.gnu.org/licenses/gpl-3.0.html
+ * License: GNU General Public License v3.0
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
- @package woocommerce
+ * @package woocommerce
  */
 
 /**
