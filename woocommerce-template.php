@@ -65,12 +65,12 @@ if ( ! function_exists( 'dp_alt_products_notice' ) ) {
 	function dp_alt_products_notice( $product_id, $no_alt ) {
 
 		$prod_text_option = get_post_meta( $product_id, '_discontinued_product_text', true );
-		$prod_alt_option = get_post_meta( $product_id, '_alt_product_text', true );
-		$text_option  = get_option( 'dc_discontinued_text' );
-		$alt_option   = get_option( 'dc_alt_text' );
-		$text         = dp_alt_products_text( $prod_text_option, $text_option, _( 'This product has been discontinued.' ) );
-		$alt          = dp_alt_products_text( $prod_alt_option, $alt_option, _( 'You may be interested in:' ) );
-		$notice       = $no_alt ? $text : $text . ' ' . $alt;
+		$prod_alt_option  = get_post_meta( $product_id, '_alt_product_text', true );
+		$text_option      = get_option( 'dc_discontinued_text' );
+		$alt_option       = get_option( 'dc_alt_text' );
+		$text             = dp_alt_products_text( $prod_text_option, $text_option, __( 'This product has been discontinued.' ) );
+		$alt              = dp_alt_products_text( $prod_alt_option, $alt_option, __( 'You may be interested in:' ) );
+		$notice           = $no_alt ? $text : $text . ' ' . $alt;
 		return $notice;
 	}
 }

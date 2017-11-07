@@ -47,8 +47,13 @@ if ( ! class_exists( 'WC_Class_DP_Settings' ) ) {
 		public function add_settings_section_fields( $settings, $current_section ) {
 
 			if ( $current_section === 'discontinued_products' ) {
-				$settings = array();
-				$settings[] = array( 'name' => __( 'Discontinued Products', 'woocommerce-discontinued-products' ), 'type' => 'title', 'desc' => __( 'The following options are global settings for Discontinued Products', 'woocommerce-discontinued-products' ), 'id' => 'discontinued_products' );
+				$settings   = array();
+				$settings[] = array(
+					'name' => __( 'Discontinued Products', 'woocommerce-discontinued-products' ),
+					'type' => 'title',
+					'desc' => __( 'The following options are global settings for Discontinued Products', 'woocommerce-discontinued-products' ),
+					'id'   => 'discontinued_products',
+				);
 				$settings[] = array(
 					'name'     => __( 'Hide from shop', 'woocommerce-discontinued-products' ),
 					'id'       => 'dc_hide_from_shop',
@@ -80,7 +85,10 @@ if ( ! class_exists( 'WC_Class_DP_Settings' ) ) {
 					'desc'     => __( 'Enter text to be shown when alternative product are suggested.', 'woocommerce-discontinued-products' ),
 				);
 
-				$settings[] = array( 'type' => 'sectionend', 'id' => 'discontinued_products' );
+				$settings[] = array(
+					'type' => 'sectionend',
+					'id'   => 'discontinued_products',
+				);
 				return $settings;
 			}
 

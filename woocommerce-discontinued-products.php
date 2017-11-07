@@ -38,11 +38,11 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		 */
 		class WC_Discontinued_Products {
 
-	 		/**
-	 		 * Inititiate the WC_Discontinued_Products Class.
-	 		 *
-	 		 * @since 1.0.0
-	 		 */
+			/**
+			 * Inititiate the WC_Discontinued_Products Class.
+			 *
+			 * @since 1.0.0
+			 */
 			public function __construct() {
 				// Called only after woocommerce has finished loading.
 				add_action( 'woocommerce_init', array( $this, 'woocommerce_loaded' ) );
@@ -71,8 +71,8 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			 */
 			public function woocommerce_loaded() {
 
-				include( 'includes/wc-class-dp-discontinued-product.php' );
-				include( 'includes/wc-class-dp-settings.php' );
+				include 'includes/wc-class-dp-discontinued-product.php';
+				include 'includes/wc-class-dp-settings.php';
 			}
 
 			/**
@@ -92,7 +92,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			 */
 			public function include_template_functions() {
 
-				include( 'woocommerce-template.php' );
+				include 'woocommerce-template.php';
 			}
 		}
 

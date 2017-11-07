@@ -265,6 +265,7 @@ if ( ! class_exists( 'WC_Class_DP_Discontinued_Product' ) ) {
 
 			$args = array(
 				'post_type'  => 'product',
+				// @codingStandardsIgnoreStart
 				'meta_query' => array(
 					array(
 						'key'   => '_is_discontinued',
@@ -276,6 +277,7 @@ if ( ! class_exists( 'WC_Class_DP_Discontinued_Product' ) ) {
 						'compare' => '!=',
 					),
 				),
+				// @codingStandardsIgnoreStart
 				'fields'     => 'ids',
 			);
 			if ( $option === 'no' ) {
