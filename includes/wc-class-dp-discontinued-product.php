@@ -57,9 +57,9 @@ if ( ! class_exists( 'WC_Class_DP_Discontinued_Product' ) ) {
 			add_action( 'update_option_dc_hide_from_shop', array( $this, 'set_discontinued_products_to_hide' ) );
 			add_action( 'update_option_dc_hide_from_search', array( $this, 'set_discontinued_products_to_hide' ) );
 			add_action( 'pre_get_posts', array( $this, 'exclude_discontinued_products' ) );
-			$this->hide_from_shop = get_transient( 'dp_hide_from_shop' );
+			$this->hide_from_shop   = get_transient( 'dp_hide_from_shop' );
 			$this->hide_from_search = get_transient( 'dp_hide_from_search' );
-			$this->doing_dp_ids = false;
+			$this->doing_dp_ids     = false;
 		}
 
 		/**
@@ -104,9 +104,9 @@ if ( ! class_exists( 'WC_Class_DP_Discontinued_Product' ) ) {
 					<?php
 						woocommerce_wp_checkbox(
 							array(
-								'id'			=> '_is_discontinued',
+								'id'            => '_is_discontinued',
 								'wrapper_class' => '',
-								'label'		 => __( 'Is Discontinued', 'woocommerce-discontinued-products' ),
+								'label'         => __( 'Is Discontinued', 'woocommerce-discontinued-products' ),
 								'description'   => __( 'Check if this product is discontinued', 'woocommerce-discontinued-products' ),
 							)
 						);
@@ -124,26 +124,29 @@ if ( ! class_exists( 'WC_Class_DP_Discontinued_Product' ) ) {
 				</div>
 
 				<div class="options_group">
+
 					<p class="form-field">
 						<label for="alt_products"><?php esc_html_e( 'Alternative Products', 'woocommerce-discontinued-products' ); ?></label>
-						<input type="hidden" class="wc-product-search" style="width: 50%;" id="alt_products" name="alt_products" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce-discontinued-products' ); ?>" data-action="woocommerce_json_search_products" data-multiple="true" data-exclude="<?php echo intval( $post->ID ); ?>" data-selected="<?php
-						$product_ids = array_filter( array_map( 'absint', (array) get_post_meta( $post->ID, '_alt_products', true ) ) );
-						$json_ids	= array();
+						<select name="alt_products[]" class="wc-product-search" multiple="multiple" style="width: 50%;" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce' ); ?>" data-action="woocommerce_json_search_products_and_variations">
+							<?php
+							$product_ids = array_filter( array_map( 'absint', (array) get_post_meta( $post->ID, '_alt_products', true ) ) );
 
-						foreach ( $product_ids as $product_id ) {
-							$product = wc_get_product( $product_id );
-							if ( is_object( $product ) ) {
-								$json_ids[ $product_id ] = wp_kses_post( html_entity_decode( $product->get_formatted_name(), ENT_QUOTES, get_bloginfo( 'charset' ) ) );
+							foreach ( $product_ids as $product_id ) {
+								$product = wc_get_product( $product_id );
+								if ( is_object( $product ) ) {
+									echo '<option value="' . esc_attr( $product_id ) . '"' . selected( true, true, false ) . '>' . wp_kses_post( $product->get_formatted_name() ) . '</option>';
+								}
 							}
-						}
-
-						echo esc_attr( wp_json_encode( $json_ids ) );
-						?>" value="<?php echo esc_attr( implode( ',', array_keys( $json_ids ) ) ); ?>" /> <?php
+							?>
+						</select>
+						<?php
 						// @codingStandardsIgnoreStart
 						echo wc_help_tip( __( 'Any product that is added to this field will generate a button for the add to cart area that will link to the corresponding product.', 'woocommerce-discontinued-products' ) );
 						// @codingStandardsIgnoreEnd
 						?>
 					</p>
+
+
 					<?php
 						$placeholder = get_option( 'dc_alt_text' );
 						woocommerce_wp_text_input(
@@ -202,7 +205,7 @@ if ( ! class_exists( 'WC_Class_DP_Discontinued_Product' ) ) {
 			$is_discontinued = filter_input( INPUT_POST, '_is_discontinued' ) !== null ? 'yes' : 'no';
 			update_post_meta( $post_id, '_is_discontinued', $is_discontinued );
 			update_post_meta( $post_id, '_discontinued_product_text', filter_input( INPUT_POST, '_discontinued_product_text' ) );
-			$alt_products    = filter_input( INPUT_POST, 'alt_products' ) !== null ? array_filter( array_map( 'intval', explode( ',', filter_input( INPUT_POST, 'alt_products' ) ) ) ) : array();
+			$alt_products = filter_input( INPUT_POST, 'alt_products', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY ) ? filter_input( INPUT_POST, 'alt_products', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY ) : array();
 			update_post_meta( $post_id, '_alt_products', $alt_products );
 			update_post_meta( $post_id, '_alt_product_text', filter_input( INPUT_POST, '_alt_product_text' ) );
 			update_post_meta( $post_id, '_hide_from_shop', filter_input( INPUT_POST, '_hide_from_shop' ) );
