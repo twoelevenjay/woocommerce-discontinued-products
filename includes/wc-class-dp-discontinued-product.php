@@ -56,7 +56,7 @@ if ( ! class_exists( 'WC_Class_DP_Discontinued_Product' ) ) {
 			add_action( 'save_post', array( $this, 'set_discontinued_products_to_hide' ) );
 			add_action( 'update_option_dc_hide_from_shop', array( $this, 'set_discontinued_products_to_hide' ) );
 			add_action( 'update_option_dc_hide_from_search', array( $this, 'set_discontinued_products_to_hide' ) );
-			add_action( 'pre_get_posts', array( $this, 'exclude_discontinued_products' ) );
+			add_action( 'pre_get_posts', array( $this, 'exclude_discontinued_products' ), 100 );
 			$this->hide_from_shop   = get_transient( 'dp_hide_from_shop' );
 			$this->hide_from_search = get_transient( 'dp_hide_from_search' );
 			$this->doing_dp_ids     = false;
@@ -267,8 +267,8 @@ if ( ! class_exists( 'WC_Class_DP_Discontinued_Product' ) ) {
 				'post_type'  => 'product',
 				'meta_query' => array(
 					array(
-						'key'     => '_is_discontinued',
-						'value'   => 'yes',
+						'key'   => '_is_discontinued',
+						'value' => 'yes',
 					),
 					array(
 						'key'     => $where_to_hide,
@@ -296,8 +296,13 @@ if ( ! class_exists( 'WC_Class_DP_Discontinued_Product' ) ) {
 		 * @param object $query Main WP Query.
 		 */
 		public function exclude_discontinued_products( $query ) {
-
-			$ids_to_hide = $query->get( 'post_type' ) === 'product' && ! is_search() ? $this->hide_from_shop : ( is_search() ? $this->hide_from_search : false );
+			$ids_to_hide = false;
+			if ( $query->is_post_type_archive( 'product' ) || isset( $query->query_vars['product_cat'] ) ) {
+				$ids_to_hide = $this->hide_from_shop;
+			}
+			if ( is_search() ) {
+				$ids_to_hide = $this->hide_from_search;
+			}
 			if ( ! is_admin() && ! $this->doing_dp_ids && $query->is_main_query() && ! is_single() && $ids_to_hide ) {
 				$query->set( 'post__not_in', $ids_to_hide );
 			}
