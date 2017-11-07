@@ -276,7 +276,7 @@ if ( ! class_exists( 'WC_Class_DP_Discontinued_Product' ) ) {
 						'compare' => '!=',
 					),
 				),
-				'fields' => 'ids',
+				'fields'     => 'ids',
 			);
 			if ( $option === 'no' ) {
 				$args['meta_query'][1]['value']   = 'hide';
