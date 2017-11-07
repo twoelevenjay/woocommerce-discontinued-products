@@ -49,7 +49,7 @@ if ( ! class_exists( 'WC_Class_DP_Discontinued_Product' ) ) {
 		public function __construct() {
 
 			add_action( 'woocommerce_product_write_panel_tabs', array( $this, 'add_discontinued_product_tab' ) );
-			add_action( 'woocommerce_product_write_panels', array( $this, 'add_discontinued_product_panel' ) );
+			add_action( 'woocommerce_product_data_panels', array( $this, 'add_discontinued_product_panel' ) );
 			add_action( 'woocommerce_process_product_meta', array( $this, 'save' ) );
 			add_action( 'template_redirect', array( $this, 'remove_add_to_cart' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
