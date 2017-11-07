@@ -2,6 +2,11 @@
 
 ## Changelog
 
+### 1.1.1 11.07.2017
+* Hide from product category pages when hidden from shop.
+* Replace depreciated action hook.
+* Fix alternative product search.
+
 ### 1.1.0 07.08.2016
 * Add settings page.
 
