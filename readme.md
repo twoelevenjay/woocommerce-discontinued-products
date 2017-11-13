@@ -35,8 +35,6 @@ WooCommerce Discontinued Products requires the most current version of WooCommer
 * WooCommerce Discontinued Products documentation to come. It will be at [WooCommerce Discontinued Products wiki](https://github.com/twoelevenjay/woocommerce-discontinued-products/wiki) on GitHub.
 
 ### 3rd Party Resources
-
-##### Custom Field Types
 * [WooCommerce](https://wordpress.org/plugins/woocommerce/) from [Automattic](https://automattic.com/).
 
 ### Contribution
