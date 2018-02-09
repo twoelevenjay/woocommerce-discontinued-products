@@ -86,7 +86,7 @@ if ( ! class_exists( 'WC_Class_DP_Discontinued_Product' ) ) {
 		public function add_discontinued_product_tab() {
 
 			?>
-			<li class="discontinued_product_tab"><a href="#discontinued_product_tab_data"><?php esc_html_e( 'Discontinued Products', 'woocommerce-discontinued-products' ); ?></a></li>
+			<li class="discontinued_product_tab"><a href="#discontinued_product_tab_data"><span><?php esc_html_e( 'Discontinued Products', 'woocommerce-discontinued-products' ); ?></span></a></li>
 			<?php
 		}
 
