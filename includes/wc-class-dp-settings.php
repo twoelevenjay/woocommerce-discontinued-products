@@ -67,18 +67,18 @@ if ( ! class_exists( 'WC_Class_DP_Settings' ) ) {
 					'id'       => 'dc_hide_from_search',
 					'type'     => 'checkbox',
 					'css'      => 'min-width:300px;',
-					'desc'     => __( 'Hide from the product search results page by default.', 'text-domain' ),
+					'desc'     => __( 'Hide from the product search results page by default.', 'woocommerce-discontinued-products' ),
 					'default'  => 'yes',
 				);
 				$settings[] = array(
-					'name'     => __( 'Discontinued product text', 'text-domain' ),
+					'name'     => __( 'Discontinued product text', 'woocommerce-discontinued-products' ),
 					'desc_tip' => __( 'This can be overridden on a per product basis the default is: "This product has been discontinued.".', 'woocommerce-discontinued-products' ),
 					'id'       => 'dc_discontinued_text',
 					'type'     => 'text',
 					'desc'     => __( 'Enter text to be shown when product is discontinued.', 'woocommerce-discontinued-products' ),
 				);
 				$settings[] = array(
-					'name'     => __( 'Alternative product text', 'text-domain' ),
+					'name'     => __( 'Alternative product text', 'woocommerce-discontinued-products' ),
 					'desc_tip' => __( 'This can be overridden on a per product basis the default is: "You may be interested in:".', 'woocommerce-discontinued-products' ),
 					'id'       => 'dc_alt_text',
 					'type'     => 'text',
