@@ -14,7 +14,7 @@ How to report a bug
 ---
 1. Specify the version number for both WordPress, WooCommerce and WooCommerce Discontinued Products.
 3. Describe the problem in detail. Explain what happened, and what you expected would happen.
-4. Provide a small test-case and a link to a [gist](https://gist.github.com/) containing yany relevant code.
+4. Provide a small test-case and a link to a [gist](https://gist.github.com/) containing any relevant code.
 5. If helpful, include a screenshot. Annotate the screenshot for clarity.
 
 
