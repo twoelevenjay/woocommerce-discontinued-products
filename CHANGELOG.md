@@ -2,6 +2,9 @@
 
 ## Changelog
 
+### 1.1.3 10.04.2018
+* Add discontiued-notice class.
+
 ### 1.1.2 02.08.2018
 * Add spacing in data panel tab.
 * Fix missing gettext text domains.
