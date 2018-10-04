@@ -42,7 +42,7 @@ if ( ! function_exists( 'dp_alt_products' ) ) {
 		$alt_products = is_array( $alt_products ) ? $alt_products : array();
 		$notice       = dp_alt_products_notice( $post->ID, empty( $alt_products ) );
 		?>
-		<h4 class="discontiued-notice"><?php echo esc_html( $notice ); ?></h4>
+		<h4 class="discontinued-notice"><?php echo esc_html( $notice ); ?></h4>
 		<?php
 		foreach ( $alt_products as $alt_product ) {
 			?>
