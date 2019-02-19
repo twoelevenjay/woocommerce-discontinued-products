@@ -56,7 +56,8 @@ if ( ! class_exists( 'WC_Class_DP_Discontinued_Product' ) ) {
 			add_action( 'save_post', array( $this, 'set_discontinued_products_to_hide' ) );
 			add_action( 'update_option_dc_hide_from_shop', array( $this, 'set_discontinued_products_to_hide' ) );
 			add_action( 'update_option_dc_hide_from_search', array( $this, 'set_discontinued_products_to_hide' ) );
-			add_action( 'pre_get_posts', array( $this, 'exclude_discontinued_products' ), 100 );
+			add_action( 'pre_get_posts', array( $this, 'exclude_discontinued_products' ), 1000 );
+			//add_filter( 'woocommerce_get_shop_page_id', array( $this, 'override_shop_page_id' ), 1 );
 			$this->hide_from_shop   = get_transient( 'dp_hide_from_shop' );
 			$this->hide_from_search = get_transient( 'dp_hide_from_search' );
 			$this->doing_dp_ids     = false;
@@ -264,9 +265,10 @@ if ( ! class_exists( 'WC_Class_DP_Discontinued_Product' ) ) {
 		public function get_product_ids_to_hide( $where_to_hide, $option ) {
 
 			$args = array(
-				'post_type'  => 'product',
+				'post_type'      => 'product',
+				'posts_per_page' => -1,
 				// @codingStandardsIgnoreStart
-				'meta_query' => array(
+				'meta_query'     => array(
 					array(
 						'key'   => '_is_discontinued',
 						'value' => 'yes',
@@ -278,7 +280,7 @@ if ( ! class_exists( 'WC_Class_DP_Discontinued_Product' ) ) {
 					),
 				),
 				// @codingStandardsIgnoreStart
-				'fields'     => 'ids',
+				'fields'         => 'ids',
 			);
 			if ( $option === 'no' ) {
 				$args['meta_query'][1]['value']   = 'hide';
@@ -306,8 +308,26 @@ if ( ! class_exists( 'WC_Class_DP_Discontinued_Product' ) ) {
 				$ids_to_hide = $this->hide_from_search;
 			}
 			if ( ! is_admin() && ! $this->doing_dp_ids && $query->is_main_query() && ! is_single() && $ids_to_hide ) {
+
 				$query->set( 'post__not_in', $ids_to_hide );
 			}
+			return $query;
+		}
+
+		/**
+		 * Borrow the WooCommerce shop template for discontinued products.
+		 *
+		 * @since 1.4.0
+		 * @param int $shop_page_id Shop page ID.
+		 */
+		public function override_shop_page_id( $shop_page_id ) {
+
+			$dc_shop_page_id = get_option( 'dc_shop_page_id' );
+			if ( get_the_ID() === (int) $dc_shop_page_id ) {
+
+				$shop_page_id = $dc_shop_page_id;
+			}
+			return $shop_page_id;
 		}
 	}
 

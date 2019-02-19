@@ -92,3 +92,38 @@ if ( ! function_exists( 'dp_alt_products_text' ) ) {
 		return $text;
 	}
 }
+
+if ( ! function_exists( 'is_dp_shop' ) ) {
+
+	/**
+	 * Is_shop - Returns true when viewing the product type archive (shop).
+	 *
+	 * @return bool
+	 */
+	function is_dp_shop() {
+		return ( is_page( (int) get_option( 'dc_shop_page_id' ) ) );
+	}
+}
+
+add_filter( 'woocommerce_variable_sale_price_html', 'discontinued_template_loop_price', 10, 2 );
+add_filter( 'woocommerce_variable_price_html', 'discontinued_template_loop_price', 10, 2 );
+add_filter( 'woocommerce_get_price_html', 'discontinued_template_loop_price', 10, 2 );
+
+if ( ! function_exists( 'discontinued_template_loop_price' ) ) {
+
+	/**
+	 * Discontinued_template_loop_price - replaces price with discontinued text.
+	 *
+	 * @return null
+	 */
+	function discontinued_template_loop_price( $price, $product ) {
+		$product_id = $product->get_id();
+		if ( dp_is_discontinued( $product_id ) ) {
+			$prod_text_option = get_post_meta( $product_id, '_discontinued_product_text', true );
+			$text_option      = get_option( 'dc_discontinued_text' );
+			$text             = dp_alt_products_text( $prod_text_option, $text_option, __( 'This product has been discontinued.', 'woocommerce-discontinued-products' ) );
+			$price            = $text;
+		}
+		return $price;
+	}
+}

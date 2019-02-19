@@ -86,6 +86,16 @@ if ( ! class_exists( 'WC_Class_DP_Settings' ) ) {
 				);
 
 				$settings[] = array(
+					'title'    => __( 'Discontinued page', 'woocommerce-discontinued-products' ),
+					'id'       => 'dc_shop_page_id',
+					'type'     => 'single_select_page',
+					'default'  => '',
+					'class'    => 'wc-enhanced-select-nostd',
+					'css'      => 'min-width:300px;',
+					'desc_tip' => __( 'This sets the page of your discontinued products - this is where your discontinued product archive will be.', 'woocommerce-discontinued-products' ),
+				);
+
+				$settings[] = array(
 					'type' => 'sectionend',
 					'id'   => 'discontinued_products',
 				);

@@ -2,6 +2,9 @@
 
 ## Changelog
 
+### 1.1.4 02.19.2019
+* Replace price with discontinued text in shop loop to be constant with single product page behavior.
+
 ### 1.1.3 10.04.2018
 * Add discontiued-notice class.
 
