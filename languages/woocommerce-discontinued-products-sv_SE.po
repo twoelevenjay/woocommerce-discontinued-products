@@ -30,7 +30,7 @@ msgid "Is Discontinued"
 msgstr "Har Utgått"
  #: includes/wc-class-dp-discontinued-product.php:110
 msgid "Check if this product is discontinued"
-msgstr "Kontrollera om denna produkt har utgått"
+msgstr "Markera om denna produkt har utgått"
  #: includes/wc-class-dp-discontinued-product.php:117
 #: includes/wc-class-dp-discontinued-product.php:152
 msgid "Display text"
