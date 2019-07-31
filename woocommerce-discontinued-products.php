@@ -71,6 +71,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			 */
 			public function woocommerce_loaded() {
 
+				include 'includes/wc-class-dp-csv-import-export.php';
 				include 'includes/wc-class-dp-discontinued-product.php';
 				include 'includes/wc-class-dp-settings.php';
 				include 'includes/wc-class-dp-shortcode-discontinued.php';

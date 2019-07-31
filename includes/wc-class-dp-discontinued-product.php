@@ -57,7 +57,6 @@ if ( ! class_exists( 'WC_Class_DP_Discontinued_Product' ) ) {
 			add_action( 'update_option_dc_hide_from_shop', array( $this, 'set_discontinued_products_to_hide' ) );
 			add_action( 'update_option_dc_hide_from_search', array( $this, 'set_discontinued_products_to_hide' ) );
 			add_action( 'pre_get_posts', array( $this, 'exclude_discontinued_products' ), 1000 );
-			//add_filter( 'woocommerce_get_shop_page_id', array( $this, 'override_shop_page_id' ), 1 );
 			$this->hide_from_shop   = get_transient( 'dp_hide_from_shop' );
 			$this->hide_from_search = get_transient( 'dp_hide_from_search' );
 			$this->doing_dp_ids     = false;

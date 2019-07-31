@@ -47,9 +47,6 @@ function discontinued_shortcode( $atts ) {
 
 /**
  * List multiple products shortcode.
- *
- * @param array $atts Attributes.
- * @return string
  */
 function init_discontinued_shortcode() {
 	add_shortcode( 'discontinued_products', 'discontinued_shortcode' );
