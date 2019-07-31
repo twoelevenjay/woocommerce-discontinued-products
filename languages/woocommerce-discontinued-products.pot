@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: WooCommerce Discontinued Products\n"
-"POT-Creation-Date: 2019-07-31 01:04-0400\n"
-"PO-Revision-Date: 2019-07-31 01:02-0400\n"
+"POT-Creation-Date: 2019-07-31 01:28-0400\n"
+"PO-Revision-Date: 2019-07-31 01:27-0400\n"
 "Last-Translator: Leon <leon@211j.com>\n"
 "Language-Team: Leon <leon@211j.com>\n"
 "MIME-Version: 1.0\n"
@@ -34,7 +34,6 @@ msgid "Check if this product is discontinued"
 msgstr ""
 
 #: includes/wc-class-dp-discontinued-product.php:118
-#: includes/wc-class-dp-discontinued-product.php:156
 msgid "Display text"
 msgstr ""
 
@@ -54,6 +53,11 @@ msgstr ""
 msgid ""
 "Any product that is added to this field will generate a button for the add "
 "to cart area that will link to the corresponding product."
+msgstr ""
+
+#: includes/wc-class-dp-discontinued-product.php:156
+#: includes/wc-class-dp-settings.php:81
+msgid "Alternative product text"
 msgstr ""
 
 #: includes/wc-class-dp-discontinued-product.php:159
@@ -124,10 +128,6 @@ msgstr ""
 
 #: includes/wc-class-dp-settings.php:78
 msgid "Enter text to be shown when product is discontinued."
-msgstr ""
-
-#: includes/wc-class-dp-settings.php:81
-msgid "Alternative product text"
 msgstr ""
 
 #: includes/wc-class-dp-settings.php:82

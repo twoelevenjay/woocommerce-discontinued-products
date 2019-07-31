@@ -153,7 +153,7 @@ if ( ! class_exists( 'WC_Class_DP_Discontinued_Product' ) ) {
 						woocommerce_wp_text_input(
 							array(
 								'id'          => '_alt_product_text',
-								'label'       => __( 'Display text', 'woocommerce-discontinued-products' ),
+								'label'       => __( 'Alternative product text', 'woocommerce-discontinued-products' ),
 								'placeholder' => $placeholder,
 								'desc_tip'    => 'true',
 								'description' => __( 'Enter text to be shown when alternative product are suggested.', 'woocommerce-discontinued-products' ),
