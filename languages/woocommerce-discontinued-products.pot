@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: WooCommerce Discontinued Products\n"
-"POT-Creation-Date: 2016-07-12 16:27-0400\n"
-"PO-Revision-Date: 2016-07-12 16:26-0400\n"
+"POT-Creation-Date: 2019-07-31 01:04-0400\n"
+"PO-Revision-Date: 2019-07-31 01:02-0400\n"
 "Last-Translator: Leon <leon@211j.com>\n"
 "Language-Team: Leon <leon@211j.com>\n"
 "MIME-Version: 1.0\n"
@@ -20,123 +20,133 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: includes/wc-class-dp-discontinued-product.php:89
-#: includes/wc-class-dp-settings.php:36 includes/wc-class-dp-settings.php:51
+#: includes/wc-class-dp-discontinued-product.php:90
+#: includes/wc-class-dp-settings.php:36 includes/wc-class-dp-settings.php:52
 msgid "Discontinued Products"
 msgstr ""
 
-#: includes/wc-class-dp-discontinued-product.php:109
+#: includes/wc-class-dp-discontinued-product.php:110
 msgid "Is Discontinued"
 msgstr ""
 
-#: includes/wc-class-dp-discontinued-product.php:110
+#: includes/wc-class-dp-discontinued-product.php:111
 msgid "Check if this product is discontinued"
 msgstr ""
 
-#: includes/wc-class-dp-discontinued-product.php:117
-#: includes/wc-class-dp-discontinued-product.php:152
+#: includes/wc-class-dp-discontinued-product.php:118
+#: includes/wc-class-dp-discontinued-product.php:156
 msgid "Display text"
 msgstr ""
 
-#: includes/wc-class-dp-discontinued-product.php:120
+#: includes/wc-class-dp-discontinued-product.php:121
 msgid "Enter text to be shown when this product is discontinued"
 msgstr ""
 
-#: includes/wc-class-dp-discontinued-product.php:128
+#: includes/wc-class-dp-discontinued-product.php:130
 msgid "Alternative Products"
 msgstr ""
 
-#: includes/wc-class-dp-discontinued-product.php:129
+#: includes/wc-class-dp-discontinued-product.php:131
 msgid "Search for a product&hellip;"
 msgstr ""
 
-#: includes/wc-class-dp-discontinued-product.php:143
+#: includes/wc-class-dp-discontinued-product.php:145
 msgid ""
 "Any product that is added to this field will generate a button for the add "
 "to cart area that will link to the corresponding product."
 msgstr ""
 
-#: includes/wc-class-dp-discontinued-product.php:155
-#: includes/wc-class-dp-settings.php:80
+#: includes/wc-class-dp-discontinued-product.php:159
+#: includes/wc-class-dp-settings.php:85
 msgid "Enter text to be shown when alternative product are suggested."
 msgstr ""
 
-#: includes/wc-class-dp-discontinued-product.php:166
+#: includes/wc-class-dp-discontinued-product.php:170
 msgid "Hide on shop / archive."
 msgstr ""
 
-#: includes/wc-class-dp-discontinued-product.php:168
+#: includes/wc-class-dp-discontinued-product.php:172
 msgid "Hide from shop / archive pages."
 msgstr ""
 
-#: includes/wc-class-dp-discontinued-product.php:170
-#: includes/wc-class-dp-discontinued-product.php:183
+#: includes/wc-class-dp-discontinued-product.php:174
+#: includes/wc-class-dp-discontinued-product.php:187
 msgid "Default"
 msgstr ""
 
-#: includes/wc-class-dp-discontinued-product.php:171
-#: includes/wc-class-dp-discontinued-product.php:184
+#: includes/wc-class-dp-discontinued-product.php:175
+#: includes/wc-class-dp-discontinued-product.php:188
 msgid "Hide"
 msgstr ""
 
-#: includes/wc-class-dp-discontinued-product.php:172
-#: includes/wc-class-dp-discontinued-product.php:185
+#: includes/wc-class-dp-discontinued-product.php:176
+#: includes/wc-class-dp-discontinued-product.php:189
 msgid "Show"
 msgstr ""
 
-#: includes/wc-class-dp-discontinued-product.php:179
+#: includes/wc-class-dp-discontinued-product.php:183
 msgid "Hide on search."
 msgstr ""
 
-#: includes/wc-class-dp-discontinued-product.php:181
+#: includes/wc-class-dp-discontinued-product.php:185
 msgid "Hide from search results."
 msgstr ""
 
-#: includes/wc-class-dp-settings.php:51
+#: includes/wc-class-dp-settings.php:54
 msgid "The following options are global settings for Discontinued Products"
 msgstr ""
 
-#: includes/wc-class-dp-settings.php:53
+#: includes/wc-class-dp-settings.php:58
 msgid "Hide from shop"
 msgstr ""
 
-#: includes/wc-class-dp-settings.php:57
+#: includes/wc-class-dp-settings.php:62
 msgid "Hide on product archive pages including the shop page by default."
 msgstr ""
 
-#: includes/wc-class-dp-settings.php:61
+#: includes/wc-class-dp-settings.php:66
 msgid "Hide from search"
 msgstr ""
 
-#: includes/wc-class-dp-settings.php:65
+#: includes/wc-class-dp-settings.php:70
 msgid "Hide from the product search results page by default."
 msgstr ""
 
-#: includes/wc-class-dp-settings.php:69
+#: includes/wc-class-dp-settings.php:74
 msgid "Discontinued product text"
 msgstr ""
 
-#: includes/wc-class-dp-settings.php:70
+#: includes/wc-class-dp-settings.php:75
 msgid ""
 "This can be overridden on a per product basis the default is: \"This product "
 "has been discontinued.\"."
 msgstr ""
 
-#: includes/wc-class-dp-settings.php:73
+#: includes/wc-class-dp-settings.php:78
 msgid "Enter text to be shown when product is discontinued."
 msgstr ""
 
-#: includes/wc-class-dp-settings.php:76
+#: includes/wc-class-dp-settings.php:81
 msgid "Alternative product text"
 msgstr ""
 
-#: includes/wc-class-dp-settings.php:77
+#: includes/wc-class-dp-settings.php:82
 msgid ""
 "This can be overridden on a per product basis the default is: \"You may be "
 "interested in:\"."
 msgstr ""
 
-#: woocommerce-template.php:71
+#: includes/wc-class-dp-settings.php:89
+msgid "Discontinued page"
+msgstr ""
+
+#: includes/wc-class-dp-settings.php:95
+msgid ""
+"This sets the page of your discontinued products - this is where your "
+"discontinued product archive will be."
+msgstr ""
+
+#: woocommerce-template.php:71 woocommerce-template.php:124
 msgid "This product has been discontinued."
 msgstr ""
 
