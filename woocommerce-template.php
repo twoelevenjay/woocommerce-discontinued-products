@@ -70,7 +70,7 @@ if ( ! function_exists( 'dp_alt_products_notice' ) ) {
 		$alt_option       = get_option( 'dc_alt_text' );
 		$text             = dp_alt_products_text( $prod_text_option, $text_option, __( 'This product has been discontinued.', 'woocommerce-discontinued-products' ) );
 		$alt              = dp_alt_products_text( $prod_alt_option, $alt_option, __( 'You may be interested in:', 'woocommerce-discontinued-products' ) );
-		$notice           = $no_alt ? $text : $text . ' ' . $alt;
+		$notice           = $no_alt ? $text : $text . '</H4><h4 class="discontinued-notice-alt">' . $alt . </4>;
 		return $notice;
 	}
 }
