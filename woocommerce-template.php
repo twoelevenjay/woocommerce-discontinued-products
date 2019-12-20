@@ -113,12 +113,16 @@ if ( ! function_exists( 'discontinued_template_loop_price' ) ) {
 
 	/**
 	 * Discontinued_template_loop_price - replaces price with discontinued text.
+	 * Replaces price in admin with "discontinued".
 	 *
 	 * @return null
 	 */
 	function discontinued_template_loop_price( $price, $product ) {
 		$product_id = $product->get_id();
 		if ( dp_is_discontinued( $product_id ) ) {
+			if(is_admin()){
+				return 'Discontinued';
+			}
 			$prod_text_option = get_post_meta( $product_id, '_discontinued_product_text', true );
 			$text_option      = get_option( 'dc_discontinued_text' );
 			$text             = dp_alt_products_text( $prod_text_option, $text_option, __( 'This product has been discontinued.', 'woocommerce-discontinued-products' ) );
