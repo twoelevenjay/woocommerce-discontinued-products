@@ -300,6 +300,13 @@ if ( ! class_exists( 'WC_Class_DP_Discontinued_Product' ) ) {
 		 */
 		public function exclude_discontinued_products( $query ) {
 			$ids_to_hide = false;
+			
+			// ALSO HIDE ON PRODUCT TAG PAGES
+			$q_object = get_queried_object();
+			if (isset($q_object->taxonomy) && $q_object->taxonomy == 'product_tag'){
+				$ids_to_hide = $this->hide_from_shop;
+			}
+			
 			if ( $query->is_post_type_archive( 'product' ) || isset( $query->query_vars['product_cat'] ) ) {
 				$ids_to_hide = $this->hide_from_shop;
 			}
