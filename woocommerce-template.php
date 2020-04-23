@@ -122,7 +122,7 @@ if ( ! function_exists( 'discontinued_template_loop_price' ) ) {
 			$prod_text_option = get_post_meta( $product_id, '_discontinued_product_text', true );
 			$text_option      = get_option( 'dc_discontinued_text' );
 			$text             = dp_alt_products_text( $prod_text_option, $text_option, __( 'This product has been discontinued.', 'woocommerce-discontinued-products' ) );
-			$price            = $text;
+			$price            = '<span class="discontinued">' . $text . '</span>';
 		}
 		return $price;
 	}
