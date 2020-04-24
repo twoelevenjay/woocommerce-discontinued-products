@@ -2,3 +2,8 @@
     font-family: WooCommerce!important;
     content: "\e006";
 }
+
+p.price span.discontinued
+{
+    color: red;
+}
