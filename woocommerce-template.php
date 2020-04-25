@@ -122,8 +122,24 @@ if ( ! function_exists( 'discontinued_template_loop_price' ) ) {
 			$prod_text_option = get_post_meta( $product_id, '_discontinued_product_text', true );
 			$text_option      = get_option( 'dc_discontinued_text' );
 			$text             = dp_alt_products_text( $prod_text_option, $text_option, __( 'This product has been discontinued.', 'woocommerce-discontinued-products' ) );
-			$price            = '<span class="discontinued">' . $text . '</span>';
+			$price            = $text;
 		}
 		return $price;
+	}
+}
+
+add_filter( 'woocommerce_product_price_class', 'discontinued_template_price_class', 10, 2 );
+
+if ( ! function_exists( 'discontinued_template_price_class' ) ) {
+
+	/**
+	 * Discontinued_template_price_class - Add "discontinued" to the price class.
+	 *
+	 * @return null
+	 */
+	function discontinued_template_price_class( $val, $class ) {
+		$class = $val . ' discontinued';
+
+		return $class;
 	}
 }
