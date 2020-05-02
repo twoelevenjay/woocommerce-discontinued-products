@@ -1,0 +1,140 @@
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Project-Id-Version: WooCommerce Discontinued Products\n"
+"POT-Creation-Date: 2016-07-12 16:27-0400\n"
+"PO-Revision-Date: 2019-03-01 09:46+0000\n"
+"Last-Translator: Tobias Gårdner <info@villaspa.se>\n"
+"Language-Team: Svenska\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: woocommerce-discontinued-products.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"Report-Msgid-Bugs-To: \n"
+"Language: sv_SE\n"
+"X-Loco-Version: 2.2.0; wp-4.9.9"
+ #: includes/wc-class-dp-discontinued-product.php:89
+#: includes/wc-class-dp-settings.php:36 includes/wc-class-dp-settings.php:51
+msgid "Discontinued Products"
+msgstr "Produkter som utgått"
+ #: includes/wc-class-dp-discontinued-product.php:109
+msgid "Is Discontinued"
+msgstr "Har Utgått"
+ #: includes/wc-class-dp-discontinued-product.php:110
+msgid "Check if this product is discontinued"
+msgstr "Markera om denna produkt har utgått"
+ #: includes/wc-class-dp-discontinued-product.php:117
+#: includes/wc-class-dp-discontinued-product.php:152
+msgid "Display text"
+msgstr "Text som visas"
+ #: includes/wc-class-dp-discontinued-product.php:120
+msgid "Enter text to be shown when this product is discontinued"
+msgstr "Skriv text som ska visas när denna produkt har utgått"
+ #: includes/wc-class-dp-discontinued-product.php:128
+msgid "Alternative Products"
+msgstr "Alternativa produkter"
+ #: includes/wc-class-dp-discontinued-product.php:129
+msgid "Search for a product&hellip;"
+msgstr "Sök efter produkt..."
+ #: includes/wc-class-dp-discontinued-product.php:143
+msgid ""
+"Any product that is added to this field will generate a button for the add "
+"to cart area that will link to the corresponding product."
+msgstr ""
+"Produkter som läggs till i detta fält kommer att resultera i en knapp (Lägg "
+"i kundvagn) som länkar till respektive produkt."
+ #: includes/wc-class-dp-discontinued-product.php:155
+#: includes/wc-class-dp-settings.php:80
+msgid "Enter text to be shown when alternative product are suggested."
+msgstr "Skriv text som ska visas när alternativa produkter föreslås."
+ #: includes/wc-class-dp-discontinued-product.php:166
+msgid "Hide on shop / archive."
+msgstr "Göm i butik / arkiv."
+ #: includes/wc-class-dp-discontinued-product.php:168
+msgid "Hide from shop / archive pages."
+msgstr "Göm i butik / arkiv sidor."
+ #: includes/wc-class-dp-discontinued-product.php:170
+#: includes/wc-class-dp-discontinued-product.php:183
+msgid "Default"
+msgstr "Förvalt"
+ #: includes/wc-class-dp-discontinued-product.php:171
+#: includes/wc-class-dp-discontinued-product.php:184
+msgid "Hide"
+msgstr "Göm"
+ #: includes/wc-class-dp-discontinued-product.php:172
+#: includes/wc-class-dp-discontinued-product.php:185
+msgid "Show"
+msgstr "Visa"
+ #: includes/wc-class-dp-discontinued-product.php:179
+msgid "Hide on search."
+msgstr "Göm vid sökning."
+ #: includes/wc-class-dp-discontinued-product.php:181
+msgid "Hide from search results."
+msgstr "Göm från sökresultat."
+ #: includes/wc-class-dp-settings.php:51
+msgid "The following options are global settings for Discontinued Products"
+msgstr "Följande visar globala inställningar för Discontinued Products"
+ #: includes/wc-class-dp-settings.php:53
+msgid "Hide from shop"
+msgstr "Göm i butiken"
+ #: includes/wc-class-dp-settings.php:57
+msgid "Hide on product archive pages including the shop page by default."
+msgstr "Göm från arkiv sidor inklusive butikssidor som standardval."
+ #: includes/wc-class-dp-settings.php:61
+msgid "Hide from search"
+msgstr "Göm från sök"
+ #: includes/wc-class-dp-settings.php:65
+msgid "Hide from the product search results page by default."
+msgstr "Göm från produkt sök-resultat som standardval."
+ #: includes/wc-class-dp-settings.php:69
+msgid "Discontinued product text"
+msgstr "Text för produkter som utgått"
+ #: includes/wc-class-dp-settings.php:70
+msgid ""
+"This can be overridden on a per product basis the default is: \"This product "
+"has been discontinued.\"."
+msgstr ""
+"Följande kan åsidosättas för respektive produkt. Standard är: \"Denna "
+"produkt har utgått.\"."
+ #: includes/wc-class-dp-settings.php:73
+msgid "Enter text to be shown when product is discontinued."
+msgstr "Skriv text som ska visas när en produkt har utgått."
+ #: includes/wc-class-dp-settings.php:76
+msgid "Alternative product text"
+msgstr ""
+ #: includes/wc-class-dp-settings.php:77
+msgid ""
+"This can be overridden on a per product basis the default is: \"You may be "
+"interested in:\"."
+msgstr ""
+"Följande kan åsidosättas för respektive produkt. Standard är: \"Du kanske är "
+"intresserad av följande istället:\"."
+ #: woocommerce-template.php:71
+msgid "This product has been discontinued."
+msgstr "Denna produkt har utgått."
+ #: woocommerce-template.php:72
+msgid "You may be interested in:"
+msgstr "Du kanske är intresserad av följande istället:"
+ #. Plugin Name of the plugin/theme
+msgid "WooCommerce Discontinued Products"
+msgstr ""
+ #. Plugin URI of the plugin/theme
+msgid "https://wordpress.org/plugins/discontinued-products/"
+msgstr ""
+ #. Description of the plugin/theme
+msgid "Enables WooCommerce Discontinued Products."
+msgstr "Möjliggör Woocommerce Discontinued Products."
+ #. Author of the plugin/theme
+msgid "Leon @ 211J"
+msgstr ""
+ #. Author URI of the plugin/theme
+msgid "http://211j.com/"
+msgstr ""
