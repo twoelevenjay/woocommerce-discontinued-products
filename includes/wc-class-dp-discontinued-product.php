@@ -299,16 +299,15 @@ if ( ! class_exists( 'WC_Class_DP_Discontinued_Product' ) ) {
 		 * @param object $query Main WP Query.
 		 */
 		public function exclude_discontinued_products( $query ) {
-			$ids_to_hide = false;
-			if ( $query->is_post_type_archive( 'product' ) || isset( $query->query_vars['product_cat'] ) ) {
-				$ids_to_hide = $this->hide_from_shop;
-			}
-			if ( is_search() ) {
-				$ids_to_hide = $this->hide_from_search;
-			}
 			if ( ! is_admin() && ! $this->doing_dp_ids && $query->is_main_query() && ! is_single() && $ids_to_hide ) {
-
-				$query->set( 'post__not_in', $ids_to_hide );
+				$args = array(
+					'meta_query' => array(
+						array(
+							'key' => '_is_discontinued',
+							'compare' => 'NOT EXISTS'
+						)
+					));
+				$query->set('meta_query', $args);
 			}
 			return $query;
 		}

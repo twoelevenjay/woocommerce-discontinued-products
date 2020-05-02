@@ -42,7 +42,7 @@ if ( ! function_exists( 'dp_alt_products' ) ) {
 		$alt_products = is_array( $alt_products ) ? $alt_products : array();
 		$notice       = dp_alt_products_notice( $post->ID, empty( $alt_products ) );
 		?>
-		<h4 class="discontinued-notice"><?php echo esc_html( $notice ); ?></h4>
+		<?php echo $notice; ?></h4>
 		<?php
 		foreach ( $alt_products as $alt_product ) {
 			?>
@@ -70,7 +70,7 @@ if ( ! function_exists( 'dp_alt_products_notice' ) ) {
 		$alt_option       = get_option( 'dc_alt_text' );
 		$text             = dp_alt_products_text( $prod_text_option, $text_option, __( 'This product has been discontinued.', 'woocommerce-discontinued-products' ) );
 		$alt              = dp_alt_products_text( $prod_alt_option, $alt_option, __( 'You may be interested in:', 'woocommerce-discontinued-products' ) );
-		$notice           = $no_alt ? $text : $text . ' ' . $alt;
+		$notice           = $no_alt ? '<h4 class="discontinued-notice">' . esc_html($text) . '</H4>' : '<h4 class="discontinued-notice">' . esc_html($text) . '</H4><h4 class="discontinued-notice-alt">' . esc_html($alt) . '</H4>';
 		return $notice;
 	}
 }
@@ -113,12 +113,16 @@ if ( ! function_exists( 'discontinued_template_loop_price' ) ) {
 
 	/**
 	 * Discontinued_template_loop_price - replaces price with discontinued text.
+	 * Replaces price in admin with "discontinued".
 	 *
 	 * @return null
 	 */
 	function discontinued_template_loop_price( $price, $product ) {
 		$product_id = $product->get_id();
 		if ( dp_is_discontinued( $product_id ) ) {
+			if(is_admin()){
+				return 'Discontinued';
+			}
 			$prod_text_option = get_post_meta( $product_id, '_discontinued_product_text', true );
 			$text_option      = get_option( 'dc_discontinued_text' );
 			$text             = dp_alt_products_text( $prod_text_option, $text_option, __( 'This product has been discontinued.', 'woocommerce-discontinued-products' ) );
