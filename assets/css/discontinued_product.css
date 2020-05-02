@@ -3,7 +3,7 @@
     content: "\e006";
 }
 
-p.price span.discontinued
+p.price.discontinued
 {
     color: red;
 }

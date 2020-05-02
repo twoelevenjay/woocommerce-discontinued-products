@@ -2,6 +2,10 @@
 
 ## Changelog
 
+### 1.1.7 04.25.2020
+* Fixed - price class .discontinued
+* Removed - span.discontinued into the price
+
 ### 1.1.6 04.23.2020
 * Added span.discontinued into the price
 * Added CSS Style
