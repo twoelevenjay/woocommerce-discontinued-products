@@ -41,9 +41,18 @@ if ( ! function_exists( 'dp_alt_products' ) ) {
 		$alt_products = get_post_meta( $post->ID, '_alt_products', true );
 		$alt_products = is_array( $alt_products ) ? $alt_products : array();
 		$notice       = dp_alt_products_notice( $post->ID, empty( $alt_products ) );
-		?>
-		<?php echo $notice; ?></h4>
-		<?php
+		
+		$dp_display_notice = '<h4 class"discontinued-notice">';
+		$dp_display_notice .= esc_html( $notice[0] );
+		$dp_display_notice .= '</h4>';
+		
+		if ( count( $notice ) > 1 ) {
+			$dp_display_notice .= '<h4 class"discontinued-alt-notice">';
+			$dp_display_notice .= esc_html( $notice[1] );
+			$dp_display_notice .= '</h4>';
+		}
+		echo $dp_display_notice;
+		
 		foreach ( $alt_products as $alt_product ) {
 			?>
 			<a href="<?php echo esc_url( get_permalink( $alt_product ) ); ?>" class="button"><?php echo get_the_title( $alt_product ); ?></a>
@@ -56,7 +65,7 @@ if ( ! function_exists( 'dp_alt_products_notice' ) ) {
 
 	/**
 	 * Alternative Products Notice.
-	 * Determin notice output for discontinued products based on settings.
+	 * Determine notice output for discontinued products based on settings.
 	 *
 	 * @since 1.1.0
 	 * @param int     $product_id ID of the product to check.
@@ -70,7 +79,7 @@ if ( ! function_exists( 'dp_alt_products_notice' ) ) {
 		$alt_option       = get_option( 'dc_alt_text' );
 		$text             = dp_alt_products_text( $prod_text_option, $text_option, __( 'This product has been discontinued.', 'woocommerce-discontinued-products' ) );
 		$alt              = dp_alt_products_text( $prod_alt_option, $alt_option, __( 'You may be interested in:', 'woocommerce-discontinued-products' ) );
-		$notice           = $no_alt ? '<h4 class="discontinued-notice">' . esc_html($text) . '</H4>' : '<h4 class="discontinued-notice">' . esc_html($text) . '</H4><h4 class="discontinued-notice-alt">' . esc_html($alt) . '</H4>';
+		$notice           = $no_alt ? array( $text ) : array( $text, $alt );
 		return $notice;
 	}
 }
@@ -79,7 +88,7 @@ if ( ! function_exists( 'dp_alt_products_text' ) ) {
 
 	/**
 	 * Alternative Products Text.
-	 * Determin text for discontinued products based on settings.
+	 * Determine text for discontinued products based on settings.
 	 *
 	 * @since 1.1.0
 	 * @param string $product_text product meta text.
