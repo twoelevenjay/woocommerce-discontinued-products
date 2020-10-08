@@ -1,6 +1,6 @@
 # Discontinued Products
-[![Build Status](https://travis-ci.org/twoelevenjay/woocommerce-discontinued-products.svg?branch=master)](https://travis-ci.org/twoelevenjay/woocommerce-discontinued-products)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/twoelevenjay/woocommerce-discontinued-products/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/twoelevenjay/woocommerce-discontinued-products/?branch=master)  
+[![Build Status](https://travis-ci.org/twoelevenjay/discontinued-products.svg?branch=master)](https://travis-ci.org/twoelevenjay/discontinued-products)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/twoelevenjay/discontinued-products/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/twoelevenjay/discontinued-products/?branch=master)  
 **Contributors:**         twoelevenjay, d-skinner  
 **Donate link:**          https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=leon%40211j%2ecom&lc=MQ&item_name=Two%20Eleven%20Jay&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest  
 **Tags:**                 woocommerce, woocommerce products, discontinued products, discontinued, ecommerce  
@@ -32,13 +32,13 @@ WooCommerce Discontinued Products requires the most current version of WooCommer
 * None yet, but all are welcome
 
 ### Documentation
-* WooCommerce Discontinued Products documentation to come. It will be at [WooCommerce Discontinued Products wiki](https://github.com/twoelevenjay/woocommerce-discontinued-products/wiki) on GitHub.
+* WooCommerce Discontinued Products documentation to come. It will be at [WooCommerce Discontinued Products wiki](https://github.com/twoelevenjay/discontinued-products/wiki) on GitHub.
 
 ### 3rd Party Resources
 * [WooCommerce](https://wordpress.org/plugins/woocommerce/) from [Automattic](https://automattic.com/).
 
 ### Contribution
-All contributions welcome. Please read the [CONTRIBUTING](https://github.com/twoelevenjay/woocommerce-discontinued-products/blob/master/CONTRIBUTING.md) doc for more details.
+All contributions welcome. Please read the [CONTRIBUTING](https://github.com/twoelevenjay/discontinued-products/blob/master/CONTRIBUTING.md) doc for more details.
 
 ## Installation
 
@@ -47,4 +47,4 @@ All contributions welcome. Please read the [CONTRIBUTING](https://github.com/two
 
 ## Frequently Asked Questions
 
-FAQ's usually end up in the [github wiki](https://github.com/twoelevenjay/woocommerce-discontinued-products/wiki).
+FAQ's usually end up in the [github wiki](https://github.com/twoelevenjay/discontinued-products/wiki).

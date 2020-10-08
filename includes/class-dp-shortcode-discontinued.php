@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Products shortcode class.
+ * Class 211J\Discontined_Products\DP_Shortcode_Discontinued.
  */
 class DP_Shortcode_Discontinued extends WC_Shortcode_Products {
 
@@ -25,8 +25,6 @@ class DP_Shortcode_Discontinued extends WC_Shortcode_Products {
 		$query_args['post__in'] = get_transient( 'dp_hide_from_shop' );
 	}
 }
-
-
 
 /**
  * List multiple products shortcode.

@@ -70,9 +70,9 @@ if ( ! class_exists( 'DP_Discontinued_Product' ) ) {
 		public function enqueue_scripts() {
 
 			$screen = get_current_screen();
-			if ( $screen->post_type === 'product' ) {
+			if ( 'product' === $screen->post_type ) {
 
-				wp_register_style( 'discontinued_product_styles', WC_DP_URI . '/assets/css/discontinued_product.css', false, '' );
+				wp_register_style( 'discontinued_product_styles', DP_URI . '/assets/css/discontinued_product.css', array(), DP_VER );
 				wp_enqueue_style( 'discontinued_product_styles' );
 			}
 
@@ -86,7 +86,7 @@ if ( ! class_exists( 'DP_Discontinued_Product' ) ) {
 		public function add_discontinued_product_tab() {
 
 			?>
-			<li class="discontinued_product_tab"><a href="#discontinued_product_tab_data"><span><?php esc_html_e( 'Discontinued Products', 'woocommerce-discontinued-products' ); ?></span></a></li>
+			<li class="discontinued_product_tab"><a href="#discontinued_product_tab_data"><span><?php esc_html_e( 'Discontinued Products', 'discontinued-products' ); ?></span></a></li>
 			<?php
 		}
 
@@ -106,18 +106,18 @@ if ( ! class_exists( 'DP_Discontinued_Product' ) ) {
 							array(
 								'id'            => '_is_discontinued',
 								'wrapper_class' => '',
-								'label'         => __( 'Is Discontinued', 'woocommerce-discontinued-products' ),
-								'description'   => __( 'Check if this product is discontinued', 'woocommerce-discontinued-products' ),
+								'label'         => __( 'Is Discontinued', 'discontinued-products' ),
+								'description'   => __( 'Check if this product is discontinued', 'discontinued-products' ),
 							)
 						);
 						$placeholder = get_option( 'dc_discontinued_text' );
 						woocommerce_wp_text_input(
 							array(
 								'id'          => '_discontinued_product_text',
-								'label'       => __( 'Display text', 'woocommerce-discontinued-products' ),
+								'label'       => __( 'Display text', 'discontinued-products' ),
 								'placeholder' => $placeholder,
 								'desc_tip'    => 'true',
-								'description' => __( 'Enter text to be shown when this product is discontinued', 'woocommerce-discontinued-products' ),
+								'description' => __( 'Enter text to be shown when this product is discontinued', 'discontinued-products' ),
 							)
 						);
 					?>
@@ -126,8 +126,8 @@ if ( ! class_exists( 'DP_Discontinued_Product' ) ) {
 				<div class="options_group">
 
 					<p class="form-field">
-						<label for="alt_products"><?php esc_html_e( 'Alternative Products', 'woocommerce-discontinued-products' ); ?></label>
-						<select name="alt_products[]" class="wc-product-search" multiple="multiple" style="width: 50%;" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce' ); ?>" data-action="woocommerce_json_search_products_and_variations">
+						<label for="alt_products"><?php esc_html_e( 'Alternative Products', 'discontinued-products' ); ?></label>
+						<select name="alt_products[]" class="wc-product-search" multiple="multiple" style="width: 50%;" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'discontinued-products' ); ?>" data-action="woocommerce_json_search_products_and_variations">
 							<?php
 							$product_ids = array_filter( array_map( 'absint', (array) get_post_meta( $post->ID, '_alt_products', true ) ) );
 
@@ -141,7 +141,7 @@ if ( ! class_exists( 'DP_Discontinued_Product' ) ) {
 						</select>
 						<?php
 						// @codingStandardsIgnoreStart
-						echo wc_help_tip( __( 'Any product that is added to this field will generate a button for the add to cart area that will link to the corresponding product.', 'woocommerce-discontinued-products' ) );
+						echo wc_help_tip( __( 'Any product that is added to this field will generate a button for the add to cart area that will link to the corresponding product.', 'discontinued-products' ) );
 						// @codingStandardsIgnoreEnd
 						?>
 					</p>
@@ -152,10 +152,10 @@ if ( ! class_exists( 'DP_Discontinued_Product' ) ) {
 						woocommerce_wp_text_input(
 							array(
 								'id'          => '_alt_product_text',
-								'label'       => __( 'Alternative product text', 'woocommerce-discontinued-products' ),
+								'label'       => __( 'Alternative product text', 'discontinued-products' ),
 								'placeholder' => $placeholder,
 								'desc_tip'    => 'true',
-								'description' => __( 'Enter text to be shown when alternative product are suggested.', 'woocommerce-discontinued-products' ),
+								'description' => __( 'Enter text to be shown when alternative product are suggested.', 'discontinued-products' ),
 							)
 						);
 					?>
@@ -166,26 +166,26 @@ if ( ! class_exists( 'DP_Discontinued_Product' ) ) {
 						woocommerce_wp_select(
 							array(
 								'id'          => '_hide_from_shop',
-								'label'       => __( 'Hide on shop / archive.', 'woocommerce-discontinued-products' ),
+								'label'       => __( 'Hide on shop / archive.', 'discontinued-products' ),
 								'desc_tip'    => 'true',
-								'description' => __( 'Hide from shop / archive pages.', 'woocommerce-discontinued-products' ),
+								'description' => __( 'Hide from shop / archive pages.', 'discontinued-products' ),
 								'options'     => array(
-									''     => __( 'Default', 'woocommerce-discontinued-products' ),
-									'hide' => __( 'Hide', 'woocommerce-discontinued-products' ),
-									'show' => __( 'Show', 'woocommerce-discontinued-products' ),
+									''     => __( 'Default', 'discontinued-products' ),
+									'hide' => __( 'Hide', 'discontinued-products' ),
+									'show' => __( 'Show', 'discontinued-products' ),
 								),
 							)
 						);
 						woocommerce_wp_select(
 							array(
 								'id'          => '_hide_from_search',
-								'label'       => __( 'Hide on search.', 'woocommerce-discontinued-products' ),
+								'label'       => __( 'Hide on search.', 'discontinued-products' ),
 								'desc_tip'    => 'true',
-								'description' => __( 'Hide from search results.', 'woocommerce-discontinued-products' ),
+								'description' => __( 'Hide from search results.', 'discontinued-products' ),
 								'options'     => array(
-									''     => __( 'Default', 'woocommerce-discontinued-products' ),
-									'hide' => __( 'Hide', 'woocommerce-discontinued-products' ),
-									'show' => __( 'Show', 'woocommerce-discontinued-products' ),
+									''     => __( 'Default', 'discontinued-products' ),
+									'hide' => __( 'Hide', 'discontinued-products' ),
+									'show' => __( 'Show', 'discontinued-products' ),
 								),
 							)
 						);
@@ -299,7 +299,7 @@ if ( ! class_exists( 'DP_Discontinued_Product' ) ) {
 		 * @param object $query Main WP Query.
 		 */
 		public function exclude_discontinued_products( $query ) {
-			if ( ! is_admin() && ! $this->doing_dp_ids && $query->is_main_query() && ! is_single() && $ids_to_hide ) {
+			if ( ! is_admin() && ! $this->doing_dp_ids && $query->is_main_query() && ! is_single() ) {
 				$args = array(
 					'meta_query' => array(
 						array(

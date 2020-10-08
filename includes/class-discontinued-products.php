@@ -1,10 +1,11 @@
 <?php
 /**
- * Discontinued_Products Class
+ * Discontinued_Products Class.
  *
  * @package woocommerce
  * @since 1.1.7
  */
+
 if ( ! class_exists( 'Discontinued_Products' ) ) {
 
 	/**
@@ -48,10 +49,10 @@ if ( ! class_exists( 'Discontinued_Products' ) ) {
 		 */
 		public function woocommerce_loaded() {
 
-			include WC_DP_PATH . 'includes/class-dp-csv-import-export.php';
-			include WC_DP_PATH . 'includes/class-dp-discontinued-product.php';
-			include WC_DP_PATH . 'includes/class-dp-settings.php';
-			include WC_DP_PATH . 'includes/class-dp-shortcode-discontinued.php';
+			include DP_PATH . 'includes/class-dp-csv-import-export.php';
+			include DP_PATH . 'includes/class-dp-discontinued-product.php';
+			include DP_PATH . 'includes/class-dp-settings.php';
+			include DP_PATH . 'includes/class-dp-shortcode-discontinued.php';
 		}
 
 		/**
@@ -62,7 +63,7 @@ if ( ! class_exists( 'Discontinued_Products' ) ) {
 			/**
 			 * Localisation
 			 */
-			load_plugin_textdomain( 'woocommerce-discontinued-products', false, dirname( plugin_basename( __FILE__ ) ) . '/' );
+			load_plugin_textdomain( 'discontinued-products', false, dirname( plugin_basename( __FILE__ ) ) . '/' );
 		}
 
 		/**
@@ -71,7 +72,7 @@ if ( ! class_exists( 'Discontinued_Products' ) ) {
 		 */
 		public function include_template_functions() {
 
-			include WC_DP_PATH . 'woocommerce-template.php';
+			include DP_PATH . 'woocommerce-template.php';
 		}
 	}
 }

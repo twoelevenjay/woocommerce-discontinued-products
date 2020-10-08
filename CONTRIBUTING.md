@@ -3,11 +3,11 @@
 Thank you for your interest in contributing back to WooCommerce Discontinued Products. Please help us review your issues and/or merge your pull requests by following the below guidelines.
 
 #### NOTE: The issues section is for bug reports and feature requests only.
-_Support is not offered for this library, and the likelihood that the maintainers will respond is very low. If you need help, please use [stackoverflow](http://stackoverflow.com/search?q=woocommerce), or the [wordpress.org plugin forums](http://wordpress.org/support/plugin/woocommerce-discontinued-products)._
+_Support is not offered for this library, and the likelihood that the maintainers will respond is very low. If you need help, please use [stackoverflow](http://stackoverflow.com/search?q=woocommerce), or the [wordpress.org plugin forums](http://wordpress.org/support/plugin/discontinued-products)._
 
 Before reporting a bug
 ---
-1. Search [issues](https://github.com/twoelevenjay/woocommerce-discontinued-products/issues) to see if the issue has been previously reported.
+1. Search [issues](https://github.com/twoelevenjay/discontinued-products/issues) to see if the issue has been previously reported.
 
 
 How to report a bug

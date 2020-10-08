@@ -33,7 +33,7 @@ if ( ! class_exists( 'DP_Settings' ) ) {
 		 */
 		public function add_settings_section( $sections ) {
 
-			$sections['discontinued_products'] = __( 'Discontinued Products', 'woocommerce-discontinued-products' );
+			$sections['discontinued_products'] = __( 'Discontinued Products', 'discontinued-products' );
 			return $sections;
 		}
 
@@ -46,53 +46,53 @@ if ( ! class_exists( 'DP_Settings' ) ) {
 		 */
 		public function add_settings_section_fields( $settings, $current_section ) {
 
-			if ( $current_section === 'discontinued_products' ) {
+			if ( 'discontinued_products' === $current_section ) {
 				$settings   = array();
 				$settings[] = array(
-					'name' => __( 'Discontinued Products', 'woocommerce-discontinued-products' ),
+					'name' => __( 'Discontinued Products', 'discontinued-products' ),
 					'type' => 'title',
-					'desc' => __( 'The following options are global settings for Discontinued Products', 'woocommerce-discontinued-products' ),
+					'desc' => __( 'The following options are global settings for Discontinued Products', 'discontinued-products' ),
 					'id'   => 'discontinued_products',
 				);
 				$settings[] = array(
-					'name'     => __( 'Hide from shop', 'woocommerce-discontinued-products' ),
-					'id'       => 'dc_hide_from_shop',
-					'type'     => 'checkbox',
-					'css'      => 'min-width:300px;',
-					'desc'     => __( 'Hide on product archive pages including the shop page by default.', 'woocommerce-discontinued-products' ),
-					'default'  => 'yes',
+					'name'    => __( 'Hide from shop', 'discontinued-products' ),
+					'id'      => 'dc_hide_from_shop',
+					'type'    => 'checkbox',
+					'css'     => 'min-width:300px;',
+					'desc'    => __( 'Hide on product archive pages including the shop page by default.', 'discontinued-products' ),
+					'default' => 'yes',
 				);
 				$settings[] = array(
-					'name'     => __( 'Hide from search', 'woocommerce-discontinued-products' ),
-					'id'       => 'dc_hide_from_search',
-					'type'     => 'checkbox',
-					'css'      => 'min-width:300px;',
-					'desc'     => __( 'Hide from the product search results page by default.', 'woocommerce-discontinued-products' ),
-					'default'  => 'yes',
+					'name'    => __( 'Hide from search', 'discontinued-products' ),
+					'id'      => 'dc_hide_from_search',
+					'type'    => 'checkbox',
+					'css'     => 'min-width:300px;',
+					'desc'    => __( 'Hide from the product search results page by default.', 'discontinued-products' ),
+					'default' => 'yes',
 				);
 				$settings[] = array(
-					'name'     => __( 'Discontinued product text', 'woocommerce-discontinued-products' ),
-					'desc_tip' => __( 'This can be overridden on a per product basis the default is: "This product has been discontinued.".', 'woocommerce-discontinued-products' ),
+					'name'     => __( 'Discontinued product text', 'discontinued-products' ),
+					'desc_tip' => __( 'This can be overridden on a per product basis the default is: "This product has been discontinued.".', 'discontinued-products' ),
 					'id'       => 'dc_discontinued_text',
 					'type'     => 'text',
-					'desc'     => __( 'Enter text to be shown when product is discontinued.', 'woocommerce-discontinued-products' ),
+					'desc'     => __( 'Enter text to be shown when product is discontinued.', 'discontinued-products' ),
 				);
 				$settings[] = array(
-					'name'     => __( 'Alternative product text', 'woocommerce-discontinued-products' ),
-					'desc_tip' => __( 'This can be overridden on a per product basis the default is: "You may be interested in:".', 'woocommerce-discontinued-products' ),
+					'name'     => __( 'Alternative product text', 'discontinued-products' ),
+					'desc_tip' => __( 'This can be overridden on a per product basis the default is: "You may be interested in:".', 'discontinued-products' ),
 					'id'       => 'dc_alt_text',
 					'type'     => 'text',
-					'desc'     => __( 'Enter text to be shown when alternative product are suggested.', 'woocommerce-discontinued-products' ),
+					'desc'     => __( 'Enter text to be shown when alternative product are suggested.', 'discontinued-products' ),
 				);
 
 				$settings[] = array(
-					'title'    => __( 'Discontinued page', 'woocommerce-discontinued-products' ),
+					'title'    => __( 'Discontinued page', 'discontinued-products' ),
 					'id'       => 'dc_shop_page_id',
 					'type'     => 'single_select_page',
 					'default'  => '',
 					'class'    => 'wc-enhanced-select-nostd',
 					'css'      => 'min-width:300px;',
-					'desc_tip' => __( 'This sets the page of your discontinued products - this is where your discontinued product archive will be.', 'woocommerce-discontinued-products' ),
+					'desc_tip' => __( 'This sets the page of your discontinued products - this is where your discontinued product archive will be.', 'discontinued-products' ),
 				);
 
 				$settings[] = array(
