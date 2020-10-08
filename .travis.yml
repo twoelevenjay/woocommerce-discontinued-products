@@ -1,79 +1,116 @@
-language: php
+version: ~> 1.0
 
-services:
-  - mysql
+language: php
+dist: xenial
 
 cache:
   directories:
     - $HOME/.composer/cache
 
-# Explicitly test against supported versions of PHP
-#
-# Reference: https://www.php.net/supported-versions.php
+# Since Xenial services are not started by default, we need to instruct it below to start.
+services:
+  - xvfb
+  - mysql
+  - docker
+
+# Test main supported versions of PHP against latest WP.
 php:
-  - 7.4snapshot
-  - 7.3
+  - 7.0
+  - 7.1
   - 7.2
+  - 7.3
+  - 7.4
 
-# Test against the latest version of WordPress and one version back.
 env:
-  - WP_VERSION=latest
-  - WP_VERSION=5.2
+  - WP_VERSION=latest WP_MULTISITE=0
 
-# Customize the build matrix.
-matrix:
+# Additional tests against stable PHP (min version is 7.0)
+# and code coverage report.
+jobs:
   fast_finish: true
   include:
-    # Run PHP_CodeSniffer
-    - name: Coding standards
-      php: 7.3
-      env: WP_VERSION=latest WP_TRAVISCI=phpcs
-
-    # Canary for our oldest-supported version
-    - name: Legacy
-      php: 5.6
-      env: WP_VERSION=4.9
-
-    # Nightly versions of PHP and WordPress.
-    - name: Bleeding edge
-      php: 7.4snapshot
-      env: WP_VERSION=trunk
-
-  # Jobs that are permitted to fail without breaking the build
+  - name: "Core E2E Tests"
+    php: 7.4
+    env: WP_VERSION=latest WP_MULTISITE=0 RUN_E2E=1
+    script:
+      - npm run build:assets
+      - npm install jest --global
+      - npm run docker:up
+      - npm run test:e2e
+    after_script:
+      - npm run docker:down
+  - name: "WP Nightly"
+    php: 7.4
+    env: WP_VERSION=nightly WP_MULTISITE=0
+  - name: "WP Latest"
+    php: 7.2
+    env: WP_VERSION=5.4 WP_MULTISITE=0
+  - name: "WP Latest - 1"
+    php: 7.2
+    env: WP_VERSION=5.3 WP_MULTISITE=0
+  - name: "WP Latest - 2"
+    php: 7.2
+    env: WP_VERSION=5.2 WP_MULTISITE=0
+  - name: "Code Standards"
+    php: 7.4
+    env: WP_VERSION=latest WP_MULTISITE=0 RUN_PHPCS=1
+  - name: "Code Coverage"
+    php: 7.4
+    env: WP_VERSION=latest WP_MULTISITE=0 RUN_CODE_COVERAGE=1
   allow_failures:
-    - name: Bleeding edge
-
-before_install:
-  - export PATH="$HOME/.composer/vendor/bin:$PATH"
-
-  # Unless we need XDebug, disable it for improved performance.
-  - phpenv config-rm xdebug.ini || return 0
+  - php: 7.4
+    env: WP_VERSION=latest WP_MULTISITE=0 RUN_CODE_COVERAGE=1
 
 install:
-  # Install our Composer dependencies
-  - composer install --prefer-dist --no-interaction
-
-  # Install an older version of PHPUnit if we're still running PHP 5.6.
+  - export PATH="$HOME/.composer/vendor/bin:$PATH"
   - |
-    if [[ "$TRAVIS_PHP_VERSION" == "5.6" ]]; then
-      wget -O ./vendor/bin/phpunit https://phar.phpunit.de/phpunit-5.phar
-      chmod +x ./vendor/bin/phpunit
+    # Remove Xdebug for a huge performance increase:
+    if [ -f ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ]; then
+      phpenv config-rm xdebug.ini
+    else
+      echo "xdebug.ini does not exist"
     fi
-
-  # Install the WordPress core test suite
-  - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
+  - nvm install
+  - npm install
+  - composer install
+  - |
+    # Install WP Test suite, install PHPUnit globally:
+    if [[ ! -z "$WP_VERSION" ]]; then
+      bash tests/bin/install.sh woocommerce_test root '' localhost $WP_VERSION
+      composer global require "phpunit/phpunit=6.5.*|7.5.*"
+    fi
+  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
 
 script:
-  - |
-    # If we've set the $WP_TRAVISCI variable to run PHPCS, do that instead
-    # of running PHPUnit.
-    if [[ "$WP_TRAVISCI" == "phpcs" ]]; then
-      ./vendor/bin/phpcs
+    if [[ ${RUN_PHPCS} == 1 ]]; then
+        CHANGED_FILES=`git diff --name-only --diff-filter=ACMR $TRAVIS_COMMIT_RANGE | grep \\\\.php | awk '{print}' ORS=' '`
 
-    else
-      # Execute the test suite
-      ./vendor/bin/phpunit
+        if [ "$CHANGED_FILES" != "" ]; then
+            if [ ! -f "./vendor/bin/phpcs" ]; then
+                # Install wpcs globally
+                composer global require woocommerce/woocommerce-sniffs --update-with-all-dependencies
+            fi
 
-      # Optionally run the tests again in a multisite environment
-      #WP_MULTISITE=1 ./vendor/bin/phpunit
+            echo "Running Code Sniffer."
+            phpcs --ignore=$IGNORE --encoding=utf-8 -s -n -p $CHANGED_FILES
+        fi
     fi
+
+after_script:
+    if [ $1 == 'after' ]; then
+
+        if [[ ${RUN_CODE_COVERAGE} == 1 ]]; then
+            bash <(curl -s https://codecov.io/bash)
+            wget https://scrutinizer-ci.com/ocular.phar
+            chmod +x ocular.phar
+            php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+        fi
+
+    fi
+
+# Specifies that Travis should create builds for master and release branches and also tags.
+branches:
+  only:
+    - master
+    - /^\d+\.\d+(\.\d+)?(-\S*)?$/
+    - /^release\//
