@@ -1,83 +1,79 @@
-# Travis CI (MIT License) configuration file
-# @link https://travis-ci.org/
-
-# Use new container based environment
-sudo: false
-
-dist: trusty
-
-# Declare project language.
-# @link http://about.travis-ci.org/docs/user/languages/php/
 language: php
 
-# Declare versions of PHP to use. Use one decimal max.
+services:
+  - mysql
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+# Explicitly test against supported versions of PHP
+#
+# Reference: https://www.php.net/supported-versions.php
+php:
+  - 7.4snapshot
+  - 7.3
+  - 7.2
+
+# Test against the latest version of WordPress and one version back.
+env:
+  - WP_VERSION=latest
+  - WP_VERSION=5.2
+
+# Customize the build matrix.
 matrix:
   fast_finish: true
-
   include:
-    # Current $required_php_version for WordPress: 5.2.4
-    # aliased to 5.2.17
-    - php: '5.2'
-      dist: precise
-    # aliased to a recent 5.4.x version
-    - php: '5.4'
-    # aliased to a recent 5.6.x version
-    - php: '5.6'
-    # aliased to a recent 7.0.x version
-    - php: '7.0'
-      env: SNIFF=1
-    # aliased to a recent 7.2.x version
-    - php: '7.2'
-    # aliased to a recent hhvm version
-    - php: 'hhvm'
+    # Run PHP_CodeSniffer
+    - name: Coding standards
+      php: 7.3
+      env: WP_VERSION=latest WP_TRAVISCI=phpcs
 
+    # Canary for our oldest-supported version
+    - name: Legacy
+      php: 5.6
+      env: WP_VERSION=4.9
+
+    # Nightly versions of PHP and WordPress.
+    - name: Bleeding edge
+      php: 7.4snapshot
+      env: WP_VERSION=trunk
+
+  # Jobs that are permitted to fail without breaking the build
   allow_failures:
-    - php: 'hhvm'
+    - name: Bleeding edge
 
-before_script:
-    - export PHPCS_DIR=/tmp/phpcs
-    - export WPCS_DIR=/tmp/wpcs
-    - export PHPCOMPAT_DIR=/tmp/phpcompatibility
-    # Install PHP CodeSniffer for Coding Standards checks.
-    - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/squizlabs/PHP_CodeSniffer.git $PHPCS_DIR; fi
-    # Install wpcs globally if needed:
-    if [[ ${RUN_PHPCS} == 1 ]] && [[ ${TRAVIS_PHP_VERSION:0:3} != "5.2" ]]; then
-      composer require woocommerce/woocommerce-sniffs
+before_install:
+  - export PATH="$HOME/.composer/vendor/bin:$PATH"
+
+  # Unless we need XDebug, disable it for improved performance.
+  - phpenv config-rm xdebug.ini || return 0
+
+install:
+  # Install our Composer dependencies
+  - composer install --prefer-dist --no-interaction
+
+  # Install an older version of PHPUnit if we're still running PHP 5.6.
+  - |
+    if [[ "$TRAVIS_PHP_VERSION" == "5.6" ]]; then
+      wget -O ./vendor/bin/phpunit https://phar.phpunit.de/phpunit-5.phar
+      chmod +x ./vendor/bin/phpunit
     fi
-    # Install PHP Compatibility sniffs.
-    - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/wimg/PHPCompatibility.git $PHPCOMPAT_DIR; fi
-    # Set install path for PHPCS sniffs.
-    # @link https://github.com/squizlabs/PHP_CodeSniffer/blob/4237c2fc98cc838730b76ee9cee316f99286a2a7/CodeSniffer.php#L1941
-    - if [[ "$SNIFF" == "1" ]]; then $PHPCS_DIR/bin/phpcs --config-set installed_paths $WPCS_DIR,$PHPCOMPAT_DIR; fi
-    # After CodeSniffer install you should refresh your path.
-    - if [[ "$SNIFF" == "1" ]]; then phpenv rehash; fi
-    # Install JSCS: JavaScript Code Style checker.
-    # @link http://jscs.info/
-    - if [[ "$SNIFF" == "1" ]]; then npm install -g jscs; fi
-    # Install JSHint, a JavaScript Code Quality Tool.
-    # @link http://jshint.com/docs/
-    - if [[ "$SNIFF" == "1" ]]; then npm install -g jshint; fi
-    # Pull in the WP Core jshint rules.
-    - if [[ "$SNIFF" == "1" ]]; then wget https://develop.svn.wordpress.org/trunk/.jshintrc; fi
 
-# Run test script commands.
-# All commands must exit with code 0 on success. Anything else is considered failure.
+  # Install the WordPress core test suite
+  - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
+
 script:
-    # Search for PHP syntax errors.
-    - find -L . -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l
-    # Run through JSHint.
-    - if [[ "$SNIFF" == "1" ]]; then jshint .; fi
-    # Run through JavaScript Code Style checker.
-    - if [[ "$SNIFF" == "1" ]]; then jscs .; fi
-    # Check code against the WordPress Coding Standards and for PHP cross-version compatibility.
-    # @link https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards
-    # @link https://github.com/wimg/phpcompatibility
-    # @link http://pear.php.net/package/PHP_CodeSniffer/
-    # Uses a custom ruleset based on WordPress.
-    # Only fails the build on errors, not warnings, but still show warnings in the output.
-    - if [[ "$SNIFF" == "1" ]]; then $PHPCS_DIR/bin/phpcs --runtime-set ignore_warnings_on_exit 1; fi
+  - |
+    # If we've set the $WP_TRAVISCI variable to run PHPCS, do that instead
+    # of running PHPUnit.
+    if [[ "$WP_TRAVISCI" == "phpcs" ]]; then
+      ./vendor/bin/phpcs
 
-# Receive notifications for build results.
-# @link http://docs.travis-ci.com/user/notifications/#Email-notifications
-notifications:
-    email: false
+    else
+      # Execute the test suite
+      ./vendor/bin/phpunit
+
+      # Optionally run the tests again in a multisite environment
+      #WP_MULTISITE=1 ./vendor/bin/phpunit
+    fi
