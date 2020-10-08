@@ -11,7 +11,7 @@
 * Added CSS Style
 
 ### 1.1.5 02.19.2019
-* Add the WC_Class_DP_Import_Export class to include this plugins fields in the WooCommerce import / export feature.
+* Add the DP_Import_Export class to include this plugins fields in the WooCommerce import / export feature.
 * Fixed .pot file to include missing strings.
 
 ### 1.1.4 02.19.2019

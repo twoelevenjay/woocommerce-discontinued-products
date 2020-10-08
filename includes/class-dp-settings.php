@@ -6,16 +6,16 @@
  * @since 1.1.0
  */
 
-if ( ! class_exists( 'WC_Class_DP_Settings' ) ) {
+if ( ! class_exists( 'DP_Settings' ) ) {
 	/**
-	 * WC_Class_DP_Settings Class
+	 * DP_Settings Class
 	 *
 	 * @since 1.1.0
 	 */
-	class WC_Class_DP_Settings {
+	class DP_Settings {
 
 		/**
-		 * Inititiate the WC_Class_DP_Settings.
+		 * Inititiate the DP_Settings.
 		 *
 		 * @since 1.1.0
 		 */
@@ -106,5 +106,5 @@ if ( ! class_exists( 'WC_Class_DP_Settings' ) ) {
 		}
 	}
 
-	$wc_class_dp_settings = new WC_Class_DP_Settings();
+	$wc_class_dp_settings = new DP_Settings();
 }

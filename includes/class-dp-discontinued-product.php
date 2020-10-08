@@ -6,13 +6,13 @@
  * @since 1.0.0
  */
 
-if ( ! class_exists( 'WC_Class_DP_Discontinued_Product' ) ) {
+if ( ! class_exists( 'DP_Discontinued_Product' ) ) {
 	/**
-	 * WC_Class_DP_Discontinued_Product Class
+	 * DP_Discontinued_Product Class
 	 *
 	 * @since 1.0.0
 	 */
-	class WC_Class_DP_Discontinued_Product {
+	class DP_Discontinued_Product {
 
 		/**
 		 * Array of discontinued product IDs to hide from shop.
@@ -42,7 +42,7 @@ if ( ! class_exists( 'WC_Class_DP_Discontinued_Product' ) ) {
 		public $doing_dp_ids;
 
 		/**
-		 * Inititiate the WC_Class_DP_Discontinued_Product.
+		 * Inititiate the DP_Discontinued_Product.
 		 *
 		 * @since 1.0.0
 		 */
@@ -329,5 +329,5 @@ if ( ! class_exists( 'WC_Class_DP_Discontinued_Product' ) ) {
 		}
 	}
 
-	$wc_class_dp_discontinued_product = new WC_Class_DP_Discontinued_Product();
+	$wc_class_dp_discontinued_product = new DP_Discontinued_Product();
 }

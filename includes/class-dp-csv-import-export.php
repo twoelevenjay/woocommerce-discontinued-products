@@ -11,11 +11,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-if ( ! class_exists( 'WC_Class_DP_Import_Export' ) ) {
+if ( ! class_exists( 'DP_Import_Export' ) ) {
 	/**
 	 * WC DP Products Import / Export class.
 	 */
-	class WC_Class_DP_Import_Export {
+	class DP_Import_Export {
 
 		/**
 		 * Inititiate the DP_Import_Export.
@@ -212,5 +212,5 @@ if ( ! class_exists( 'WC_Class_DP_Import_Export' ) ) {
 		}
 	}
 
-	$wc_class_dp_import_export = new WC_Class_DP_Import_Export();
+	$wc_class_dp_import_export = new DP_Import_Export();
 }
