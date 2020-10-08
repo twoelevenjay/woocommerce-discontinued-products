@@ -82,31 +82,10 @@ install:
   - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
 
 script:
-    if [[ ${RUN_PHPCS} == 1 ]]; then
-        CHANGED_FILES=`git diff --name-only --diff-filter=ACMR $TRAVIS_COMMIT_RANGE | grep \\\\.php | awk '{print}' ORS=' '`
-
-        if [ "$CHANGED_FILES" != "" ]; then
-            if [ ! -f "./vendor/bin/phpcs" ]; then
-                # Install wpcs globally
-                composer global require woocommerce/woocommerce-sniffs --update-with-all-dependencies
-            fi
-
-            echo "Running Code Sniffer."
-            phpcs --ignore=$IGNORE --encoding=utf-8 -s -n -p $CHANGED_FILES
-        fi
-    fi
+  - bash phpcs.sh
 
 after_script:
-    if [ $1 == 'after' ]; then
-
-        if [[ ${RUN_CODE_COVERAGE} == 1 ]]; then
-            bash <(curl -s https://codecov.io/bash)
-            wget https://scrutinizer-ci.com/ocular.phar
-            chmod +x ocular.phar
-            php ocular.phar code-coverage:upload --format=php-clover coverage.clover
-        fi
-
-    fi
+  - bash travis.sh after
 
 # Specifies that Travis should create builds for master and release branches and also tags.
 branches:
