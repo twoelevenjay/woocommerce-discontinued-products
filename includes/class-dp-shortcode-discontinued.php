@@ -22,7 +22,13 @@ class DP_Shortcode_Discontinued extends WC_Shortcode_Products {
 	 * @param array $query_args Query args.
 	 */
 	protected function set_discontinued_products_query_args( &$query_args ) {
-		$query_args['post__in'] = get_transient( 'dp_hide_from_shop' );
+		$dp_discontinued_term    = (int) get_option( 'dp_discontinued_term' );
+		$query_args['tax_query'][] = array(
+			'taxonomy' => 'product_discontinued',
+			'field'    => 'id',
+			'terms'    => $dp_discontinued_term,
+			'operator' => 'IN',
+		);
 	}
 }
 

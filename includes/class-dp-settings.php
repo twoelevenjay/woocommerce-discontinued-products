@@ -56,38 +56,38 @@ if ( ! class_exists( 'DP_Settings' ) ) {
 				);
 				$settings[] = array(
 					'name'    => __( 'Hide from shop', 'discontinued-products' ),
-					'id'      => 'dc_hide_from_shop',
+					'id'      => 'dp_hide_from_shop',
 					'type'    => 'checkbox',
 					'css'     => 'min-width:300px;',
 					'desc'    => __( 'Hide on product archive pages including the shop page by default.', 'discontinued-products' ),
-					'default' => 'yes',
+					'default' => '',
 				);
 				$settings[] = array(
 					'name'    => __( 'Hide from search', 'discontinued-products' ),
-					'id'      => 'dc_hide_from_search',
+					'id'      => 'dp_hide_from_search',
 					'type'    => 'checkbox',
 					'css'     => 'min-width:300px;',
 					'desc'    => __( 'Hide from the product search results page by default.', 'discontinued-products' ),
-					'default' => 'yes',
+					'default' => '',
 				);
 				$settings[] = array(
 					'name'     => __( 'Discontinued product text', 'discontinued-products' ),
 					'desc_tip' => __( 'This can be overridden on a per product basis the default is: "This product has been discontinued.".', 'discontinued-products' ),
-					'id'       => 'dc_discontinued_text',
+					'id'       => 'dp_discontinued_text',
 					'type'     => 'text',
 					'desc'     => __( 'Enter text to be shown when product is discontinued.', 'discontinued-products' ),
 				);
 				$settings[] = array(
 					'name'     => __( 'Alternative product text', 'discontinued-products' ),
 					'desc_tip' => __( 'This can be overridden on a per product basis the default is: "You may be interested in:".', 'discontinued-products' ),
-					'id'       => 'dc_alt_text',
+					'id'       => 'dp_alt_text',
 					'type'     => 'text',
 					'desc'     => __( 'Enter text to be shown when alternative product are suggested.', 'discontinued-products' ),
 				);
 
 				$settings[] = array(
 					'title'    => __( 'Discontinued page', 'discontinued-products' ),
-					'id'       => 'dc_shop_page_id',
+					'id'       => 'dp_shop_page_id',
 					'type'     => 'single_select_page',
 					'default'  => '',
 					'class'    => 'wc-enhanced-select-nostd',
@@ -106,5 +106,5 @@ if ( ! class_exists( 'DP_Settings' ) ) {
 		}
 	}
 
-	$wc_class_dp_settings = new DP_Settings();
+	$dp_settings = new DP_Settings();
 }

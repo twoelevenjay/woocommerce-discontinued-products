@@ -212,5 +212,5 @@ if ( ! class_exists( 'DP_CSV_Import_Export' ) ) {
 		}
 	}
 
-	$wc_class_dp_import_export = new DP_CSV_Import_Export();
+	$dp_import_export = new DP_CSV_Import_Export();
 }

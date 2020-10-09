@@ -19,9 +19,8 @@ if ( ! function_exists( 'dp_is_discontinued' ) ) {
 
 		global $post;
 		if ( $post || null !== $product_id ) {
-			$product_id      = null !== $product_id ? $product_id : $post->ID;
-			$is_discontinued = get_post_meta( $product_id, '_is_discontinued', true );
-			return 'yes' === $is_discontinued;
+			$product_id = null !== $product_id ? $product_id : $post->ID;
+			return has_term( (int) get_option( 'dp_discontinued_term' ), 'product_discontinued', $product_id );
 		}
 		return false;
 	}
@@ -66,8 +65,8 @@ if ( ! function_exists( 'dp_alt_products_notice' ) ) {
 
 		$prod_text_option = get_post_meta( $product_id, '_discontinued_product_text', true );
 		$prod_alt_option  = get_post_meta( $product_id, '_alt_product_text', true );
-		$text_option      = get_option( 'dc_discontinued_text' );
-		$alt_option       = get_option( 'dc_alt_text' );
+		$text_option      = get_option( 'dp_discontinued_text' );
+		$alt_option       = get_option( 'dp_alt_text' );
 		$text             = dp_alt_products_text( $prod_text_option, $text_option, __( 'This product has been discontinued.', 'discontinued-products' ) );
 		$alt              = dp_alt_products_text( $prod_alt_option, $alt_option, __( 'You may be interested in:', 'discontinued-products' ) );
 		$notice           = $no_alt ? '<h4 class="discontinued-notice">' . esc_html( $text ) . '</H4>' : '<h4 class="discontinued-notice">' . esc_html( $text ) . '</H4><h4 class="discontinued-notice-alt">' . esc_html( $alt ) . '</H4>';
@@ -101,7 +100,7 @@ if ( ! function_exists( 'is_dp_shop' ) ) {
 	 * @return bool
 	 */
 	function is_dp_shop() {
-		return ( is_page( (int) get_option( 'dc_shop_page_id' ) ) );
+		return ( is_page( (int) get_option( 'dp_shop_page_id' ) ) );
 	}
 }
 
@@ -121,16 +120,34 @@ if ( ! function_exists( 'discontinued_template_loop_price' ) ) {
 	 */
 	function discontinued_template_loop_price( $price, $product ) {
 		$product_id = $product->get_id();
-		if ( dp_is_discontinued( $product_id ) ) {
+		if ( ! is_single() && dp_is_discontinued( $product_id ) ) {
 			if ( is_admin() ) {
 				return 'Discontinued';
 			}
 			$prod_text_option = get_post_meta( $product_id, '_discontinued_product_text', true );
-			$text_option      = get_option( 'dc_discontinued_text' );
+			$text_option      = get_option( 'dp_discontinued_text' );
 			$text             = dp_alt_products_text( $prod_text_option, $text_option, __( 'This product has been discontinued.', 'discontinued-products' ) );
-			$price            = $text;
+			$price            = $price . '<br>' . $text;
 		}
 		return $price;
+	}
+}
+add_filter( 'woocommerce_is_purchasable', 'discontinued_is_purchasable', 100, 2 );
+
+if ( ! function_exists( 'discontinued_is_purchasable' ) ) {
+
+	/**
+	 * Set is_purchasable to false if product is discontinued.
+	 *
+	 * @param int    $is_purchasable Product is_purchasable.
+	 * @param object $product Product object.
+	 * @return null
+	 */
+	function discontinued_is_purchasable( $is_purchasable, $product ) {
+		if ( dp_is_discontinued( $product->get_id() ) ) {
+			$is_purchasable = false;
+		}
+		return $is_purchasable;
 	}
 }
 
