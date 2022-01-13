@@ -51,6 +51,7 @@ if ( ! class_exists( 'Discontinued_Products' ) ) {
 
 			include DP_PATH . 'includes/class-dp-csv-import-export.php';
 			include DP_PATH . 'includes/class-dp-discontinued-product.php';
+			include DP_PATH . 'includes/class-dp-plugins-page.php';
 			include DP_PATH . 'includes/class-dp-settings.php';
 			include DP_PATH . 'includes/class-dp-shortcode-discontinued.php';
 			include DP_PATH . 'includes/class-dp-taxonomy.php';
