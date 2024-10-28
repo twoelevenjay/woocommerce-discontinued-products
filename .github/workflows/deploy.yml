@@ -21,8 +21,8 @@ jobs:
           node-version: 'lts/*'  # Use latest LTS version of Node.js
 
       # Step 3: Install Node.js dependencies (if you have any)
-      - name: Install dependencies
-        run: npm install
+      # - name: Install dependencies
+      #   run: npm install
 
       # Step 4: Generate readme.txt using the Node.js script in .github/scripts/
       - name: Generate readme.txt
