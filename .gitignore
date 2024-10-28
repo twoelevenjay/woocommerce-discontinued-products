@@ -16,8 +16,23 @@
 .Spotlight-V100
 .Trashes
 
-# Composer
+### Node.js ###
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+### Ignore build artifacts ###
+/dist/
+/build/
+/public/
+
+### Ignore the temp readme.txt file ###
+/.github/temp/readme.txt
+
+### PHP Composer (if added in the future) ###
 /vendor/
-/bin/composer/**/vendor
-contributors.md
-contributors.html
+/composer.lock
+
+### Others ###
+/.env
