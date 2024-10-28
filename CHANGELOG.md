@@ -2,6 +2,11 @@
 
 ## Changelog
 
+### 2.0.0 10.27.2024
+* Major update to the plugin.
+* Fixed - Queries use the taxonomy table for better performance.
+* Added - DB updater to migrate product meta data to the new taxonomies.
+
 ### 1.1.7 04.25.2020
 * Fixed - price class .discontinued
 * Removed - span.discontinued into the price

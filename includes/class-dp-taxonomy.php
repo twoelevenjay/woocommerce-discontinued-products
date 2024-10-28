@@ -53,22 +53,21 @@ if ( ! class_exists( 'DP_Taxonomy' ) ) {
 		 * @since 2.0.0
 		 */
 		public function maybe_create_terms() {
+			// Define terms and their slugs in an array for easy iteration.
+			$terms = array(
+				'dp-discontinued' => 'dp-discontinued',
+				'dp-hide-shop'    => 'dp-hide-shop',
+				'dp-show-shop'    => 'dp-show-shop',
+				'dp-hide-search'  => 'dp-hide-search',
+				'dp-show-search'  => 'dp-show-search',
+			);
 
-			$discontinued   = term_exists( 'dp-discontinued', 'product_discontinued' );
-			$hide_on_shop   = term_exists( 'dp-hide-shop', 'product_discontinued' );
-			$show_on_shop   = term_exists( 'dp-show-shop', 'product_discontinued' );
-			$hide_on_search = term_exists( 'dp-hide-search', 'product_discontinued' );
-			$show_on_search = term_exists( 'dp-show-search', 'product_discontinued' );
-			$discontinued   = $discontinued ? $discontinued : wp_insert_term( 'dp-discontinued', 'product_discontinued', array( 'slug' => 'dp-discontinued' ) );
-			$hide_on_shop   = $hide_on_shop ? $hide_on_shop : wp_insert_term( 'dp-hide-shop', 'product_discontinued', array( 'slug' => 'dp-hide-shop' ) );
-			$show_on_shop   = $show_on_shop ? $show_on_shop : wp_insert_term( 'dp-show-shop', 'product_discontinued', array( 'slug' => 'dp-show-shop' ) );
-			$hide_on_search = $hide_on_search ? $hide_on_search : wp_insert_term( 'dp-hide-search', 'product_discontinued', array( 'slug' => 'dp-hide-search' ) );
-			$show_on_search = $show_on_search ? $show_on_search : wp_insert_term( 'dp-show-search', 'product_discontinued', array( 'slug' => 'dp-show-search' ) );
-			update_option( 'dp_discontinued_term', $discontinued['term_id'] );
-			update_option( 'dp_hide_shop_term', $hide_on_shop['term_id'] );
-			update_option( 'dp_show_shop_term', $show_on_shop['term_id'] );
-			update_option( 'dp_hide_search_term', $hide_on_search['term_id'] );
-			update_option( 'dp_show_search_term', $show_on_search['term_id'] );
+			// Loop through and create any missing terms.
+			foreach ( $terms as $name => $slug ) {
+				if ( ! term_exists( $slug, 'product_discontinued' ) ) {
+					wp_insert_term( $name, 'product_discontinued', array( 'slug' => $slug ) );
+				}
+			}
 		}
 	}
 

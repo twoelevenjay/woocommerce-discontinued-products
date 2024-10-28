@@ -1,12 +1,12 @@
 # Discontinued Products
-[![Build Status](https://travis-ci.org/twoelevenjay/woocommerce-discontinued-products.svg?branch=master)](https://travis-ci.org/twoelevenjay/woocommerce-discontinued-products)
+[![Build Status](https://scrutinizer-ci.com/g/twoelevenjay/woocommerce-discontinued-products/badges/build.png?b=master)](https://scrutinizer-ci.com/g/twoelevenjay/woocommerce-discontinued-products/build-status/master)
 
 **Contributors:**         twoelevenjay, d-skinner  
 **Donate link:**          https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=leon%40211j%2ecom&lc=MQ&item_name=Two%20Eleven%20Jay&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest  
 **Tags:**                 woocommerce, woocommerce products, discontinued products, discontinued, ecommerce  
-**Requires at least:**    4.0  
-**Tested up to:**         5.2  
-**Stable tag:**           1.1.7  
+**Requires at least:**    6.0  
+**Tested up to:**         6.6.2  
+**Stable tag:**           2.0.0  
 **License:**              GPLv2 or later  
 **License URI:**          http://www.gnu.org/licenses/gpl-2.0.html  
 
