@@ -20,32 +20,68 @@ jobs:
         with:
           node-version: 'lts/*'  # Use latest LTS version of Node.js
 
-      # Step 3: Install Node.js dependencies (if you have any, can be skipped if not needed)
-      # - name: Install dependencies
-      #   run: npm install
-
-      # Step 4: Generate readme.txt using the Node.js script in .github/scripts/
+      # Step 3: Generate readme.txt using the Node.js script
       - name: Generate readme.txt
         run: node .github/scripts/generate-readme.js
 
-      # Step 5: Install Subversion
+      # Step 4: Install Subversion
       - name: Install Subversion
         run: sudo apt-get install subversion
 
-      # Step 6: Deploy to WordPress SVN /trunk/
+      # Step 5: Check for Active Processes and Deploy to WordPress SVN /trunk/
       - name: Deploy to WordPress SVN /trunk/
         env:
           SVN_USERNAME: ${{ secrets.WORDPRESS_USERNAME }}
           SVN_PASSWORD: ${{ secrets.WORDPRESS_PASSWORD }}
         run: |
-          svn co https://plugins.svn.wordpress.org/discontinued-products/ svn-dir
-          rsync -av --delete --exclude=".git" ./ svn-dir/trunk/
-          cp .github/temp/readme.txt svn-dir/trunk/readme.txt  # Copy the newly generated readme.txt
+          # Create a lock file to prevent simultaneous modifications
+          LOCKFILE="/tmp/rsync.lock"
+
+          if [ -f "$LOCKFILE" ]; then
+            echo "Lock file exists. Another process might be running."
+            exit 1
+          fi
+
+          # Create the lock file
+          touch "$LOCKFILE"
+
+          # Check for active processes that might modify the source directory
+          if lsof +D ./ | grep -q .; then
+            echo "There are active processes modifying the source directory."
+            rm -f "$LOCKFILE" # Remove the lock file before exiting
+            exit 1
+          fi
+
+          # Retry mechanism for rsync
+          MAX_RETRIES=5
+          COUNT=0
+
+          until [ "$COUNT" -ge "$MAX_RETRIES" ]
+          do
+            rsync -av --delete --exclude=".git" ./ svn-dir/trunk/ && break
+            COUNT=$((COUNT+1))
+            echo "rsync failed. Attempt $COUNT/$MAX_RETRIES..."
+            sleep 5 # Wait before retrying
+          done
+
+          if [ "$COUNT" -eq "$MAX_RETRIES" ]; then
+            echo "rsync failed after $MAX_RETRIES attempts."
+            rm -f "$LOCKFILE" # Remove the lock file before exiting
+            exit 1
+          fi
+
+          # Copy the newly generated readme.txt
+          cp .github/temp/readme.txt svn-dir/trunk/readme.txt
+
+          # Commit changes to SVN
           cd svn-dir
           svn add --force trunk/*
           svn commit -m "Deploying version ${{ github.ref }}" --username $SVN_USERNAME --password $SVN_PASSWORD --non-interactive
 
-      # Step 7: Create a tag in WordPress SVN /tags/
+          # Remove the lock file after everything is done
+          rm -f "$LOCKFILE"
+
+      # Step 6: Create a tag in WordPress SVN /tags/
       - name: Create SVN Tag
         env:
           SVN_USERNAME: ${{ secrets.WORDPRESS_USERNAME }}
