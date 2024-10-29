@@ -20,7 +20,7 @@ if ( ! function_exists( 'dp_is_discontinued' ) ) {
 		global $post;
 		if ( $post || null !== $product_id ) {
 			$product_id = null !== $product_id ? $product_id : $post->ID;
-			return has_term( (int) get_option( 'dp_discontinued_term' ), 'product_discontinued', $product_id );
+			return has_term( 'dp-discontinued', 'product_discontinued', $product_id );
 		}
 		return false;
 	}

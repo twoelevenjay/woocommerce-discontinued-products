@@ -256,61 +256,71 @@ if ( ! class_exists( 'DP_Discontinued_Product' ) ) {
 		 */
 		public function exclude_discontinued_products( $q ) {
 			if ( $q->is_main_query() ) {
-				$dc_shop_page_id      = (int) get_option( 'dp_shop_page_id' );
-				$hide_from_shop       = get_option( 'dp_hide_from_shop' );
-				$dp_discontinued_term = (int) get_option( 'dp_discontinued_term' );
-				$dp_hide_shop_term    = (int) get_option( 'dp_hide_shop_term' );
-				$hide_shop_terms      = 'yes' === $hide_from_shop ? array( $dp_discontinued_term, $dp_hide_shop_term ) : array( $dp_hide_shop_term );
-				$hide_from_search     = get_option( 'dp_hide_from_search' );
-				$dp_hide_search_term  = (int) get_option( 'dp_hide_search_term' );
-				$hide_search_terms    = 'yes' === $hide_from_search ? array( $dp_discontinued_term, $dp_hide_search_term ) : array( $dp_hide_search_term );
-				$tax_query            = $q->get( 'tax_query' );
-				$tax_query            = is_array( $tax_query ) ? $tax_query : array();
+				$dc_shop_page_id  = (int) get_option( 'dp_shop_page_id' );
+				$hide_from_shop   = get_option( 'dp_hide_from_shop' );
+				$hide_from_search = get_option( 'dp_hide_from_search' );
+
+				$dp_discontinued_term = 'dp-discontinued';
+				$dp_hide_shop_term    = 'dp-hide-shop';
+				$dp_show_shop_term    = 'dp-show-shop';
+				$dp_hide_search_term  = 'dp-hide-search';
+				$dp_show_search_term  = 'dp-show-search';
+
+				$hide_shop_terms   = 'yes' === $hide_from_shop ? array( $dp_discontinued_term, $dp_hide_shop_term ) : array( $dp_hide_shop_term );
+				$hide_search_terms = 'yes' === $hide_from_search ? array( $dp_discontinued_term, $dp_hide_search_term ) : array( $dp_hide_search_term );
+
+				$tax_query = $q->get( 'tax_query' );
+				$tax_query = is_array( $tax_query ) ? $tax_query : array();
+
 				if ( $this->current_page_id === $dc_shop_page_id ) {
 					$tax_query[] = array(
 						'taxonomy' => 'product_discontinued',
-						'field'    => 'id',
+						'field'    => 'slug',
 						'terms'    => $dp_discontinued_term,
 						'operator' => 'IN',
 					);
 				}
+
 				if ( ( is_shop() || is_product_category() ) && $this->current_page_id !== $dc_shop_page_id && ! $q->is_search() ) {
 					$tax_query[] = array(
 						'relation' => 'OR',
 						array(
 							'taxonomy' => 'product_discontinued',
-							'field'    => 'id',
+							'field'    => 'slug',
 							'terms'    => $hide_shop_terms,
 							'operator' => 'NOT IN',
 						),
 						array(
 							'taxonomy' => 'product_discontinued',
-							'field'    => 'id',
-							'terms'    => array( (int) get_option( 'dp_show_shop_term' ) ),
+							'field'    => 'slug',
+							'terms'    => array( $dp_show_shop_term ),
 							'operator' => 'IN',
 						),
 					);
 				}
+
 				if ( $q->is_search() ) {
 					$tax_query[] = array(
 						'relation' => 'OR',
 						array(
 							'taxonomy' => 'product_discontinued',
-							'field'    => 'id',
+							'field'    => 'slug',
 							'terms'    => $hide_search_terms,
 							'operator' => 'NOT IN',
 						),
 						array(
 							'taxonomy' => 'product_discontinued',
-							'field'    => 'id',
-							'terms'    => array( (int) get_option( 'dp_show_search_term' ) ),
+							'field'    => 'slug',
+							'terms'    => array( $dp_show_search_term ),
 							'operator' => 'IN',
 						),
 					);
 				}
+
 				$q->set( 'tax_query', $tax_query );
 			}
 		}
+
 
 		/**
 		 * Borrow the WooCommerce shop template for discontinued products.
