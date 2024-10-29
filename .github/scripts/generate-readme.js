@@ -3,7 +3,7 @@ const path = require('path');
 
 const readmePath = path.join(__dirname, '../../readme.md');
 const changelogPath = path.join(__dirname, '../../CHANGELOG.md');
-const outputPath = path.join(__dirname, '../../readme.txt');
+const outputPath = path.join(__dirname, '../temp/readme.txt');
 
 // Function to detect and remove badge lines
 function shouldRemoveLine(line) {

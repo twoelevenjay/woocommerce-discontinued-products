@@ -28,7 +28,8 @@ yarn-error.log*
 /public/
 
 ### Ignore the temp readme.txt file ###
-readme.txt
+/.github/temp/
+/.github/temp/readme.txt
 
 ### PHP Composer (if added in the future) ###
 /vendor/
