@@ -248,6 +248,108 @@ if ( ! class_exists( 'DP_Discontinued_Product' ) ) {
 		}
 
 		/**
+		 * Check if the current page is a discontinued product archive page.
+		 *
+		 * @since 2.0.0
+		 * @return bool True if it is a discontinued product archive page, false otherwise.
+		 */
+		public function is_dp_archive_page() {
+
+			$dc_shop_page_id = (int) get_option( 'dp_shop_page_id' );
+			return ( is_shop() || is_product_category() ) && $this->current_page_id !== $dc_shop_page_id && ! is_search();
+		}
+
+		/**
+		 * Build the tax query for discontinued products.
+		 *
+		 * @since 2.0.0
+		 * @param WP_Query $q Main WP Query.
+		 * @return array $tax_queries Tax queries for the WP_Query.
+		 */
+		public function build_tax_query( $q ) {
+			$dc_shop_page_id  = (int) get_option( 'dp_shop_page_id' );
+			$hide_from_shop   = get_option( 'dp_hide_from_shop' );
+			$hide_from_search = get_option( 'dp_hide_from_search' );
+
+			$tax_queries = $q->get( 'tax_query' );
+			$tax_queries = is_array( $tax_queries ) ? $tax_queries : array();
+
+			if ( $this->current_page_id === $dc_shop_page_id ) {
+				$tax_queries[] = array(
+					'taxonomy' => 'product_discontinued',
+					'field'    => 'slug',
+					'terms'    => 'dp-discontinued',
+					'operator' => 'IN',
+				);
+				return $tax_queries;
+			}
+
+			if ( $this->is_dp_archive_page() && 'yes' === $hide_from_shop ) {
+				$tax_queries[] = array(
+					'relation' => 'OR',
+					array(
+						'taxonomy' => 'product_discontinued',
+						'field'    => 'slug',
+						'terms'    => 'dp-discontinued',
+						'operator' => 'NOT IN',
+					),
+					array(
+						'taxonomy' => 'product_discontinued',
+						'field'    => 'slug',
+						'terms'    => 'dp-show-shop',
+						'operator' => 'IN',
+					),
+				);
+				return $tax_queries;
+			}
+
+			if ( $this->is_dp_archive_page() ) {
+				$tax_queries[] = array(
+					array(
+						'taxonomy' => 'product_discontinued',
+						'field'    => 'slug',
+						'terms'    => 'dp-hide-shop',
+						'operator' => 'NOT IN',
+					),
+				);
+				return $tax_queries;
+			}
+
+			if ( $q->is_search() && 'yes' === $hide_from_search ) {
+				$tax_queries[] = array(
+					'relation' => 'OR',
+					array(
+						'taxonomy' => 'product_discontinued',
+						'field'    => 'slug',
+						'terms'    => 'dp-discontinued',
+						'operator' => 'NOT IN',
+					),
+					array(
+						'taxonomy' => 'product_discontinued',
+						'field'    => 'slug',
+						'terms'    => 'dp-show-search',
+						'operator' => 'IN',
+					),
+				);
+				return $tax_queries;
+			}
+
+			if ( $q->is_search() ) {
+				$tax_queries[] = array(
+					array(
+						'taxonomy' => 'product_discontinued',
+						'field'    => 'slug',
+						'terms'    => 'dp-show-search',
+						'operator' => 'IN',
+					),
+				);
+				return $tax_queries;
+			}
+
+			return $tax_queries;
+		}
+
+		/**
 		 * Exclude discontinued products.
 		 * Add a the post__not_in argiment to the main query for products.
 		 *
@@ -255,70 +357,11 @@ if ( ! class_exists( 'DP_Discontinued_Product' ) ) {
 		 * @param object $q Main WP Query.
 		 */
 		public function exclude_discontinued_products( $q ) {
-			if ( $q->is_main_query() ) {
-				$dc_shop_page_id  = (int) get_option( 'dp_shop_page_id' );
-				$hide_from_shop   = get_option( 'dp_hide_from_shop' );
-				$hide_from_search = get_option( 'dp_hide_from_search' );
-
-				$dp_discontinued_term = 'dp-discontinued';
-				$dp_hide_shop_term    = 'dp-hide-shop';
-				$dp_show_shop_term    = 'dp-show-shop';
-				$dp_hide_search_term  = 'dp-hide-search';
-				$dp_show_search_term  = 'dp-show-search';
-
-				$hide_shop_terms   = 'yes' === $hide_from_shop ? array( $dp_discontinued_term, $dp_hide_shop_term ) : array( $dp_hide_shop_term );
-				$hide_search_terms = 'yes' === $hide_from_search ? array( $dp_discontinued_term, $dp_hide_search_term ) : array( $dp_hide_search_term );
-
-				$tax_query = $q->get( 'tax_query' );
-				$tax_query = is_array( $tax_query ) ? $tax_query : array();
-
-				if ( $this->current_page_id === $dc_shop_page_id ) {
-					$tax_query[] = array(
-						'taxonomy' => 'product_discontinued',
-						'field'    => 'slug',
-						'terms'    => $dp_discontinued_term,
-						'operator' => 'IN',
-					);
-				}
-
-				if ( ( is_shop() || is_product_category() ) && $this->current_page_id !== $dc_shop_page_id && ! $q->is_search() ) {
-					$tax_query[] = array(
-						'relation' => 'OR',
-						array(
-							'taxonomy' => 'product_discontinued',
-							'field'    => 'slug',
-							'terms'    => $hide_shop_terms,
-							'operator' => 'NOT IN',
-						),
-						array(
-							'taxonomy' => 'product_discontinued',
-							'field'    => 'slug',
-							'terms'    => array( $dp_show_shop_term ),
-							'operator' => 'IN',
-						),
-					);
-				}
-
-				if ( $q->is_search() ) {
-					$tax_query[] = array(
-						'relation' => 'OR',
-						array(
-							'taxonomy' => 'product_discontinued',
-							'field'    => 'slug',
-							'terms'    => $hide_search_terms,
-							'operator' => 'NOT IN',
-						),
-						array(
-							'taxonomy' => 'product_discontinued',
-							'field'    => 'slug',
-							'terms'    => array( $dp_show_search_term ),
-							'operator' => 'IN',
-						),
-					);
-				}
-
-				$q->set( 'tax_query', $tax_query );
+			if ( is_admin() || ! $q->is_main_query() ) {
+				return;
 			}
+			$tax_queries = $this->build_tax_query( $q );
+			$q->set( 'tax_query', $tax_queries );
 		}
 
 

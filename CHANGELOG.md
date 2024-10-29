@@ -2,6 +2,9 @@
 
 ## Changelog
 
+### 2.0.1 10.29.2024
+* Fixed - Optimize tax queries being added to the main query.
+
 ### 2.0.0 10.27.2024
 * Major update to the plugin.
 * Fixed - Queries use the taxonomy table for better performance.
