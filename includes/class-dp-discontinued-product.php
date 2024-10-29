@@ -217,15 +217,19 @@ if ( ! class_exists( 'DP_Discontinued_Product' ) ) {
 			update_post_meta( $post_id, '_alt_product_text', filter_input( INPUT_POST, '_alt_product_text' ) );
 			$is_discontinued = filter_input( INPUT_POST, '_is_discontinued' );
 			if ( $is_discontinued ) {
-				$terms[] = (int) get_option( 'dp_discontinued_term' );
+				$terms[] = 'dp-discontinued';
 			}
 			$hide_from_shop = filter_input( INPUT_POST, '_hide_from_shop' );
-			if ( $hide_from_shop ) {
-				$terms[] = (int) get_option( 'dp_' . $hide_from_shop . '_shop_term' );
+			if ( 'hide' === $hide_from_shop ) {
+				$terms[] = 'dp-hide-shop';
+			} elseif ( 'show' === $hide_from_shop ) {
+				$terms[] = 'dp-show-shop';
 			}
 			$hide_from_search = filter_input( INPUT_POST, '_hide_from_search' );
-			if ( $hide_from_search ) {
-				$terms[] = (int) get_option( 'dp_' . $hide_from_search . '_search_term' );
+			if ( 'hide' === $hide_from_search ) {
+				$terms[] = 'dp-hide-search';
+			} elseif ( 'show' === $hide_from_search ) {
+				$terms[] = 'dp-show-search';
 			}
 			wp_set_object_terms( $post_id, $terms, 'product_discontinued' );
 		}

@@ -36,6 +36,29 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 	include DP_PATH . 'includes/class-discontinued-products.php';
 
+	/**
+	 * List multiple products shortcode.
+	 *
+	 * @param array $atts Attributes.
+	 * @return string
+	 */
+	function discontinued_shortcode( $atts ) {
+		$atts = (array) $atts;
+		$type = 'discontinued_products';
+
+		$shortcode = new DP_Shortcode_Discontinued( $atts, $type );
+
+		return $shortcode->get_content();
+	}
+
+	/**
+	 * List multiple products shortcode.
+	 */
+	function init_discontinued_shortcode() {
+		add_shortcode( 'discontinued_products', 'discontinued_shortcode' );
+	}
+	add_action( 'init', 'init_discontinued_shortcode' );
+
 	// Finally instantiate our plugin class and add it to the set of globals.
 	$GLOBALS['wc_discontinued_products'] = new Discontinued_Products();
 }

@@ -75,32 +75,32 @@ if ( ! class_exists( 'DP_CSV_Import_Export' ) ) {
 		 * Process the data read from the CSV file.
 		 * This just saves the value in meta data, but you can do anything you want here with the data.
 		 *
-		 * @param WC_Product $object - Product being imported or updated.
+		 * @param WC_Product $product - Product being imported or updated.
 		 * @param array      $data - CSV data read for the product.
-		 * @return WC_Product $object
+		 * @return WC_Product $product
 		 */
-		public function process_import( $object, $data ) {
+		public function process_import( $product, $data ) {
 
 			if ( ! empty( $data['is_discontinued'] ) ) {
-				$object->update_meta_data( '_is_discontinued', $data['is_discontinued'] );
+				$product->update_meta_data( '_is_discontinued', $data['is_discontinued'] );
 			}
 			if ( ! empty( $data['discontinued_product_text'] ) ) {
-				$object->update_meta_data( '_discontinued_product_text', $data['discontinued_product_text'] );
+				$product->update_meta_data( '_discontinued_product_text', $data['discontinued_product_text'] );
 			}
 			if ( ! empty( $data['alt_products'] ) ) {
-				$object->update_meta_data( '_alt_products', explode( ', ', $data['alt_products'] ) );
+				$product->update_meta_data( '_alt_products', explode( ', ', $data['alt_products'] ) );
 			}
 			if ( ! empty( $data['alt_product_text'] ) ) {
-				$object->update_meta_data( '_alt_product_text', $data['alt_product_text'] );
+				$product->update_meta_data( '_alt_product_text', $data['alt_product_text'] );
 			}
 			if ( ! empty( $data['hide_from_shop'] ) ) {
-				$object->update_meta_data( '_hide_from_shop', $data['hide_from_shop'] );
+				$product->update_meta_data( '_hide_from_shop', $data['hide_from_shop'] );
 			}
 			if ( ! empty( $data['hide_from_search'] ) ) {
-				$object->update_meta_data( '_hide_from_search', $data['hide_from_search'] );
+				$product->update_meta_data( '_hide_from_search', $data['hide_from_search'] );
 			}
 
-			return $object;
+			return $product;
 		}
 		/**
 		 * Add the custom column to the exporter and the exporter column menu.
