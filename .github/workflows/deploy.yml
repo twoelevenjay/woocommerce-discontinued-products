@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: 'lts/*'  # Use latest LTS version of Node.js
 
-      # Step 3: Install Node.js dependencies (if you have any)
+      # Step 3: Install Node.js dependencies (if you have any, can be skipped if not needed)
       # - name: Install dependencies
       #   run: npm install
 
@@ -30,7 +30,7 @@ jobs:
 
       # Step 5: Install Subversion
       - name: Install Subversion
-        run: sudo apt-get install -y subversion
+        run: sudo apt-get install subversion
 
       # Step 6: Deploy to WordPress SVN /trunk/
       - name: Deploy to WordPress SVN /trunk/
@@ -38,8 +38,8 @@ jobs:
           SVN_USERNAME: ${{ secrets.WORDPRESS_USERNAME }}
           SVN_PASSWORD: ${{ secrets.WORDPRESS_PASSWORD }}
         run: |
-          svn co https://plugins.svn.wordpress.org/discontinued-products/ svn-dir --username $SVN_USERNAME --password $SVN_PASSWORD --non-interactive
-          rsync -avvv --delete --ignore-missing-args --exclude=".git" --exclude=".github" ./ svn-dir/trunk/
+          svn co https://plugins.svn.wordpress.org/discontinued-products/ svn-dir
+          rsync -av --delete --exclude=".git" ./ svn-dir/trunk/
           cp .github/temp/readme.txt svn-dir/trunk/readme.txt  # Copy the newly generated readme.txt
           cd svn-dir
           svn add --force trunk/*
