@@ -39,7 +39,7 @@ jobs:
           SVN_PASSWORD: ${{ secrets.WORDPRESS_PASSWORD }}
         run: |
           svn co https://plugins.svn.wordpress.org/discontinued-products/ svn-dir --username $SVN_USERNAME --password $SVN_PASSWORD --non-interactive
-          rsync -av --delete --exclude=".git" ./ svn-dir/trunk/
+          rsync -avvv --delete --ignore-missing-args --exclude=".git" ./ svn-dir/trunk/
           cp .github/temp/readme.txt svn-dir/trunk/readme.txt  # Copy the newly generated readme.txt
           cd svn-dir
           svn add --force trunk/*
