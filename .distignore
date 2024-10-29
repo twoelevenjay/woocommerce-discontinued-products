@@ -8,6 +8,8 @@
 .gitignore
 .jscsrc
 .jshintrc
+.jshintignore
+.scrutinizer.yml
 .travis.yml
 travis.sh
 composer.json
@@ -16,7 +18,7 @@ package.json
 package-lock.json
 phpcs.sh
 phpcs.xml
-phpmd
+phpmd.xml
 phpunit.xml
 readme.md
 CONTRIBUTING.md
