@@ -274,7 +274,7 @@ if ( ! class_exists( 'DP_Discontinued_Product' ) ) {
 			$tax_queries = $q->get( 'tax_query' );
 			$tax_queries = is_array( $tax_queries ) ? $tax_queries : array();
 
-			if ( $this->current_page_id === $dc_shop_page_id ) {
+			if ( $this->current_page_id && $dc_shop_page_id && $dc_shop_page_id === $this->current_page_id ) {
 				$tax_queries[] = array(
 					'taxonomy' => 'product_discontinued',
 					'field'    => 'slug',

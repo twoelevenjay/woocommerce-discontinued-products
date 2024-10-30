@@ -2,6 +2,9 @@
 
 ## Changelog
 
+### 2.0.2 10.29.2024
+* Fixed - Conditionals that were causing blank archive pages.
+
 ### 2.0.1 10.29.2024
 * Fixed - Optimize tax queries being added to the main query.
 
