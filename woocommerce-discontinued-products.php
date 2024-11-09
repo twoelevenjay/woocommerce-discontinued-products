@@ -5,7 +5,7 @@
  * Description: Enables WooCommerce Discontinued Products.
  * Author: Leon @ 211J
  * Author URI: http://211j.com/
- * Version: 2.0.2
+ * Version: 2.0.3
  * Text Domain: discontinued-products
  * Domain Path: /languages
 
@@ -31,7 +31,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 	}
 
 	if ( ! defined( 'DP_VER' ) ) {
-		define( 'DP_VER', '1.1.7' );
+		define( 'DP_VER', '2.0.3' );
 	}
 
 	include DP_PATH . 'includes/class-discontinued-products.php';

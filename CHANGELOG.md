@@ -2,6 +2,9 @@
 
 ## Changelog
 
+### 2.0.3 11.09.2024
+* Fixed - Queries that were causing blank search pages.
+
 ### 2.0.2 10.29.2024
 * Fixed - Conditionals that were causing blank archive pages.
 

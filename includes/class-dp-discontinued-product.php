@@ -339,8 +339,8 @@ if ( ! class_exists( 'DP_Discontinued_Product' ) ) {
 					array(
 						'taxonomy' => 'product_discontinued',
 						'field'    => 'slug',
-						'terms'    => 'dp-show-search',
-						'operator' => 'IN',
+						'terms'    => 'dp-hide-search',
+						'operator' => 'NOT IN',
 					),
 				);
 				return $tax_queries;
