@@ -1,7 +1,7 @@
 # Discontinued Products
 [![Build Status](https://scrutinizer-ci.com/g/twoelevenjay/woocommerce-discontinued-products/badges/build.png?b=master)](https://scrutinizer-ci.com/g/twoelevenjay/woocommerce-discontinued-products/build-status/master)
 
-**Contributors:**         twoelevenjay  
+**Contributors:**         twoelevenjay, 211j  
 **Donate link:**          https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=leon%40211j%2ecom&lc=MQ&item_name=Two%20Eleven%20Jay&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest  
 **Tags:**                 woocommerce, woocommerce products, discontinued products, discontinued, ecommerce  
 **Requires at least:**    6.0  
