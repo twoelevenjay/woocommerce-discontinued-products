@@ -152,8 +152,9 @@ if ( ! class_exists( 'DP_CSV_Import_Export' ) ) {
 		 * @return mixed     $value   Should be in a format that can be output into a text file (string, numeric, etc).
 		 */
 		public function add_export_data_alt_products( $value, $product ) {
-			$value = $product->get_meta( '_alt_products', true, 'edit' );
-			return implode( ', ', $value );
+			$meta_data = $product->get_meta( '_alt_products', false, 'edit' );
+			$values = wp_list_pluck( $meta_data, 'value' );
+			return implode( ', ', $values );
 		}
 
 		/**
