@@ -37,17 +37,19 @@ if ( ! class_exists( 'Discontinued_Products' ) ) {
 			// Called just before the woocommerce template functions are included.
 			add_action( 'init', array( $this, 'include_template_functions' ), 20 );
 
-			// Indicates we are running the admin.
-			if ( is_admin() ) {
-				is_admin();
-			}
+			// Declare HPOS compatibility.
+			add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
+		}
 
-			// Indicates we are being served over ssl.
-			if ( is_ssl() ) {
-				is_ssl();
+		/**
+		 * Declare compatibility with WooCommerce HPOS (High-Performance Order Storage).
+		 *
+		 * @since 2.0.4
+		 */
+		public function declare_hpos_compatibility() {
+			if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', DP_PATH . 'woocommerce-discontinued-products.php', true );
 			}
-
-			// Take care of anything else that needs to be done immediately upon plugin instantiation, here in the constructor.
 		}
 
 		/**

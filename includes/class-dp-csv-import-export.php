@@ -153,7 +153,7 @@ if ( ! class_exists( 'DP_CSV_Import_Export' ) ) {
 		 */
 		public function add_export_data_alt_products( $value, $product ) {
 			$value = $product->get_meta( '_alt_products', true, 'edit' );
-			return implode( ', ', $value );
+			return is_array( $value ) ? implode( ', ', $value ) : '';
 		}
 
 		/**

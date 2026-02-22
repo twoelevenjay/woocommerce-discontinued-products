@@ -5,9 +5,13 @@
  * Description: Enables WooCommerce Discontinued Products.
  * Author: Leon @ 211J
  * Author URI: http://211j.com/
- * Version: 2.0.3
+ * Version: 2.0.4
+ * Requires at least: 6.0
+ * Requires PHP: 7.4
  * Text Domain: discontinued-products
  * Domain Path: /languages
+ * WC requires at least: 8.0
+ * WC tested up to: 10.5
 
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -16,11 +20,15 @@
  */
 
 /**
- * Check if WooCommerce is active.
+ * Check if WooCommerce is active (supports multisite network-wide activation).
  *
  * @since 2.0.0
  */
-if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
+$dp_active_plugins = apply_filters( 'active_plugins', get_option( 'active_plugins' ) );
+if ( is_multisite() ) {
+	$dp_active_plugins = array_merge( $dp_active_plugins, array_keys( get_site_option( 'active_sitewide_plugins', array() ) ) );
+}
+if ( in_array( 'woocommerce/woocommerce.php', $dp_active_plugins, true ) ) {
 
 	if ( ! defined( 'DP_URI' ) ) {
 		define( 'DP_URI', plugins_url( '', __FILE__ ) );
@@ -31,7 +39,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 	}
 
 	if ( ! defined( 'DP_VER' ) ) {
-		define( 'DP_VER', '2.0.3' );
+		define( 'DP_VER', '2.0.4' );
 	}
 
 	include DP_PATH . 'includes/class-discontinued-products.php';

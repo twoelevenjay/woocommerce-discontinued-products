@@ -2,6 +2,15 @@
 
 ## Changelog
 
+### 2.0.4 02.22.2026
+* Compatibility - Tested with WooCommerce 10.5 and WordPress 6.7.
+* Compatibility - Declared HPOS (High-Performance Order Storage) compatibility.
+* Compatibility - Added multisite network-wide activation support for WooCommerce detection.
+* Fixed - PHP 8.1+ TypeError in CSV export when alternative products meta is empty.
+* Improved - Updated GitHub Actions workflow to use current checkout action.
+* Added - WC requires/tested headers to plugin file.
+* Added - Requires PHP header to plugin file and readme.
+
 ### 2.0.3 11.09.2024
 * Fixed - Queries that were causing blank search pages.
 
