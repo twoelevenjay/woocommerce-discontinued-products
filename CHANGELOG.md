@@ -2,6 +2,10 @@
 
 ## Changelog
 
+### 2.0.6 02.22.2026
+* Fixed - Shop page ID override returning 0 when no discontinued archive page is configured, causing shop links (e.g. mobile navbar) to redirect to homepage.
+* Fixed - Discontinued product filtering not applying on product category pages when no discontinued archive page is configured.
+
 ### 2.0.5 02.22.2026
 * Fixed - AJAX compatibility issue with themes using WooCommerce AJAX filtering and infinite pagination (e.g. Woodmart). Tax query modifications are now skipped during AJAX requests where template conditional tags do not resolve correctly.
 

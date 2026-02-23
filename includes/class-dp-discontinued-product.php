@@ -256,7 +256,7 @@ if ( ! class_exists( 'DP_Discontinued_Product' ) ) {
 		public function is_dp_archive_page() {
 
 			$dc_shop_page_id = (int) get_option( 'dp_shop_page_id' );
-			return ( is_shop() || is_product_category() ) && $this->current_page_id !== $dc_shop_page_id && ! is_search();
+			return ( is_shop() || is_product_category() ) && ( ! $dc_shop_page_id || $this->current_page_id !== $dc_shop_page_id ) && ! is_search();
 		}
 
 		/**
@@ -384,7 +384,7 @@ if ( ! class_exists( 'DP_Discontinued_Product' ) ) {
 
 			$dc_shop_page_id = (int) get_option( 'dp_shop_page_id' );
 
-			if ( $this->current_page_id === $dc_shop_page_id ) {
+			if ( $dc_shop_page_id && $this->current_page_id === $dc_shop_page_id ) {
 				$shop_page_id = $dc_shop_page_id;
 			}
 			return $shop_page_id;
