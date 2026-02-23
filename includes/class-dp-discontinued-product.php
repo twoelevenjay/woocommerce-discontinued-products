@@ -360,6 +360,15 @@ if ( ! class_exists( 'DP_Discontinued_Product' ) ) {
 			if ( is_admin() || ! $q->is_main_query() ) {
 				return;
 			}
+
+			// Skip during AJAX requests (e.g. WooCommerce wc-ajax, theme AJAX filters).
+			// Template conditional tags like is_shop() and is_product_category() do not
+			// resolve correctly in AJAX context, which causes inconsistent tax queries
+			// that break pagination and filter URLs in themes like Woodmart.
+			if ( wp_doing_ajax() ) {
+				return;
+			}
+
 			$tax_queries = $this->build_tax_query( $q );
 			$q->set( 'tax_query', $tax_queries );
 		}

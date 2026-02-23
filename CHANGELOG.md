@@ -2,6 +2,9 @@
 
 ## Changelog
 
+### 2.0.5 02.22.2026
+* Fixed - AJAX compatibility issue with themes using WooCommerce AJAX filtering and infinite pagination (e.g. Woodmart). Tax query modifications are now skipped during AJAX requests where template conditional tags do not resolve correctly.
+
 ### 2.0.4 02.22.2026
 * Compatibility - Tested with WooCommerce 10.5 and WordPress 6.7.
 * Compatibility - Declared HPOS (High-Performance Order Storage) compatibility.
