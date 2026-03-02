@@ -5,13 +5,13 @@
  * Description: Enables WooCommerce Discontinued Products.
  * Author: Leon @ 211J
  * Author URI: http://211j.com/
- * Version: 2.0.6
+ * Version: 2.0.7
  * Requires at least: 6.0
  * Requires PHP: 7.4
  * Text Domain: discontinued-products
  * Domain Path: /languages
  * WC requires at least: 8.0
- * WC tested up to: 10.5
+ * WC tested up to: 10.5.2
 
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -39,7 +39,7 @@ if ( in_array( 'woocommerce/woocommerce.php', $dp_active_plugins, true ) ) {
 	}
 
 	if ( ! defined( 'DP_VER' ) ) {
-		define( 'DP_VER', '2.0.6' );
+		define( 'DP_VER', '2.0.7' );
 	}
 
 	include DP_PATH . 'includes/class-discontinued-products.php';
@@ -66,6 +66,20 @@ if ( in_array( 'woocommerce/woocommerce.php', $dp_active_plugins, true ) ) {
 		add_shortcode( 'discontinued_products', 'discontinued_shortcode' );
 	}
 	add_action( 'init', 'init_discontinued_shortcode' );
+
+	/**
+	 * Add a Settings link to the plugins page.
+	 *
+	 * @since 2.0.7
+	 * @param array $links Existing plugin action links.
+	 * @return array
+	 */
+	function dp_plugin_action_links( $links ) {
+		$settings_link = '<a href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=products&section=discontinued_products' ) ) . '">' . esc_html__( 'Settings', 'discontinued-products' ) . '</a>';
+		array_unshift( $links, $settings_link );
+		return $links;
+	}
+	add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'dp_plugin_action_links' );
 
 	// Finally instantiate our plugin class and add it to the set of globals.
 	$GLOBALS['wc_discontinued_products'] = new Discontinued_Products();

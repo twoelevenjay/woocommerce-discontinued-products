@@ -2,6 +2,12 @@
 
 ## Changelog
 
+### 2.0.7 03.02.2026
+* Fixed - Stray closing `</h4>` tag in discontinued notice output producing invalid HTML.
+* Fixed - Inconsistent HTML tag casing in discontinued notice markup.
+* Added - Settings link on the WordPress plugins page for quick access to plugin configuration.
+* Compatibility - Tested with WordPress 6.9 and WooCommerce 10.5.2.
+
 ### 2.0.6 02.22.2026
 * Fixed - Shop page ID override returning 0 when no discontinued archive page is configured, causing shop links (e.g. mobile navbar) to redirect to homepage.
 * Fixed - Discontinued product filtering not applying on product category pages when no discontinued archive page is configured.
