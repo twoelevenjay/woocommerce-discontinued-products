@@ -96,6 +96,20 @@ if ( ! class_exists( 'DP_Settings' ) ) {
 				);
 
 				$settings[] = array(
+					'title'    => __( 'Admin list UI default view', 'discontinued-products' ),
+					'id'       => 'dp_admin_list_ui_default',
+					'desc_tip' => __( 'This sets whether to show or hide discontinued products in the admin ui products list view.', 'discontinued-products' ),
+					'type'     => 'select',
+					'class'    => 'wc-enhanced-select',
+					'default'  => 'include_discontinued',
+					'options'  => array(
+						'include_discontinued' => __( 'Show All Products', 'discontinued-products' ),
+						'hide_discontinued'    => __( 'Hide Discontinued Products', 'discontinued-products' ),
+						'only_discontinued'    => __( 'Show Only Discontinued Products', 'discontinued-products' ),
+					),
+				);
+
+				$settings[] = array(
 					'type' => 'sectionend',
 					'id'   => 'discontinued_products',
 				);
