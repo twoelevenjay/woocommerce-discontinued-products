@@ -9,6 +9,13 @@
 
 defined( 'ABSPATH' ) || exit;
 
+if ( ! class_exists( 'WP_Async_Request', false ) ) {
+	include_once dirname( WC_PLUGIN_FILE ) . '/includes/libraries/wp-async-request.php';
+}
+if ( ! class_exists( 'WP_Background_Process', false ) ) {
+	include_once dirname( WC_PLUGIN_FILE ) . '/includes/libraries/wp-background-process.php';
+}
+
 /**
  * Background process to update data.
  */

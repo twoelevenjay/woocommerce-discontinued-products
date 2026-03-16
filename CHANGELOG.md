@@ -2,6 +2,10 @@
 
 ## Changelog
 
+### 2.0.8 03.16.2026
+* Fixed - WP_Background_Process class not found error with WooCommerce 10.6+ due to missing library includes.
+* Compatibility - Tested with WordPress 6.9.4 and WooCommerce 10.6.1.
+
 ### 2.0.7 03.02.2026
 * Fixed - Stray closing `</h4>` tag in discontinued notice output producing invalid HTML.
 * Fixed - Inconsistent HTML tag casing in discontinued notice markup.
