@@ -6,6 +6,10 @@
  * @since 1.0.0
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 if ( ! class_exists( 'DP_Discontinued_Product' ) ) {
 	/**
 	 * DP_Discontinued_Product Class
@@ -33,6 +37,7 @@ if ( ! class_exists( 'DP_Discontinued_Product' ) ) {
 				$this->current_page_id = $page_id ? $page_id : $this->current_page_id;
 				add_action( 'init', array( $this, 'woocommerce_flush_rewrite_rules' ) );
 				add_action( 'woocommerce_product_query', array( $this, 'exclude_discontinued_products' ), 1000 );
+				add_action( 'pre_get_posts', array( $this, 'exclude_discontinued_from_site_search' ), 1000 );
 				add_filter( 'woocommerce_get_shop_page_id', array( $this, 'override_shop_page_id' ), 1, 1 );
 				add_action( 'template_redirect', array( $this, 'add_dp_alt_products' ) );
 			}
@@ -210,11 +215,17 @@ if ( ! class_exists( 'DP_Discontinued_Product' ) ) {
 		 */
 		public static function save( $post_id ) {
 
+			// WooCommerce verifies its meta box nonce before firing woocommerce_process_product_meta.
+			if ( ! current_user_can( 'edit_post', $post_id ) ) {
+				return;
+			}
+
 			$terms = array();
-			update_post_meta( $post_id, '_discontinued_product_text', filter_input( INPUT_POST, '_discontinued_product_text' ) );
-			$alt_products = filter_input( INPUT_POST, 'alt_products', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY ) ? filter_input( INPUT_POST, 'alt_products', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY ) : array();
+			update_post_meta( $post_id, '_discontinued_product_text', sanitize_text_field( (string) filter_input( INPUT_POST, '_discontinued_product_text' ) ) );
+			$alt_products = filter_input( INPUT_POST, 'alt_products', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+			$alt_products = is_array( $alt_products ) ? array_values( array_filter( array_map( 'absint', $alt_products ) ) ) : array();
 			update_post_meta( $post_id, '_alt_products', $alt_products );
-			update_post_meta( $post_id, '_alt_product_text', filter_input( INPUT_POST, '_alt_product_text' ) );
+			update_post_meta( $post_id, '_alt_product_text', sanitize_text_field( (string) filter_input( INPUT_POST, '_alt_product_text' ) ) );
 			$is_discontinued = filter_input( INPUT_POST, '_is_discontinued' );
 			if ( $is_discontinued ) {
 				$terms[] = 'dp-discontinued';
@@ -256,7 +267,7 @@ if ( ! class_exists( 'DP_Discontinued_Product' ) ) {
 		public function is_dp_archive_page() {
 
 			$dc_shop_page_id = (int) get_option( 'dp_shop_page_id' );
-			return ( is_shop() || is_product_category() ) && ( ! $dc_shop_page_id || $this->current_page_id !== $dc_shop_page_id ) && ! is_search();
+			return ( is_shop() || is_product_taxonomy() ) && ( ! $dc_shop_page_id || $this->current_page_id !== $dc_shop_page_id ) && ! is_search();
 		}
 
 		/**
@@ -366,6 +377,30 @@ if ( ! class_exists( 'DP_Discontinued_Product' ) ) {
 			// resolve correctly in AJAX context, which causes inconsistent tax queries
 			// that break pagination and filter URLs in themes like Woodmart.
 			if ( wp_doing_ajax() ) {
+				return;
+			}
+
+			$tax_queries = $this->build_tax_query( $q );
+			$q->set( 'tax_query', $tax_queries );
+		}
+
+		/**
+		 * Apply the hide from search setting to the general site search.
+		 * WooCommerce only runs woocommerce_product_query for product searches,
+		 * so a plain ?s= search would otherwise list hidden discontinued products.
+		 * Posts and pages have no product_discontinued terms and are unaffected.
+		 *
+		 * @since 2.0.9
+		 * @param WP_Query $q Main WP Query.
+		 */
+		public function exclude_discontinued_from_site_search( $q ) {
+			if ( is_admin() || wp_doing_ajax() || ! $q->is_main_query() || ! $q->is_search() ) {
+				return;
+			}
+
+			// Product searches are already handled through woocommerce_product_query.
+			$post_type = $q->get( 'post_type' );
+			if ( 'product' === $post_type || ( is_array( $post_type ) && array( 'product' ) === array_values( $post_type ) ) ) {
 				return;
 			}
 

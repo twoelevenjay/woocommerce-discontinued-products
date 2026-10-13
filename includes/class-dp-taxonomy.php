@@ -6,6 +6,10 @@
  * @since 1.1.0
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 if ( ! class_exists( 'DP_Taxonomy' ) ) {
 	/**
 	 * DP_Taxonomy Class
