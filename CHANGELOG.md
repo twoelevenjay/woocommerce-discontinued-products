@@ -2,6 +2,16 @@
 
 ## Changelog
 
+### 2.0.9 10.13.2026
+* Fixed - Hide from shop now also applies to product tag and attribute archive pages, not only the shop and category pages.
+* Fixed - Hide from search now also applies to the general site search, not only the product search.
+* Fixed - Product CSV export now includes the discontinued, hide from shop and hide from search values.
+* Fixed - Product CSV import now saves the discontinued, hide from shop and hide from search values directly instead of requiring a data update afterwards.
+* Fixed - The "discontinued" price class is only added to discontinued products.
+* Security - Product discontinued text and alternative product fields are sanitized on save and escaped on output.
+* Security - The data update notice and action now require the manage_woocommerce capability.
+* Compatibility - Tested with WordPress 7.1.3 and WooCommerce 11.2.1.
+
 ### 2.0.8 03.16.2026
 * Fixed - WP_Background_Process class not found error with WooCommerce 10.6+ due to missing library includes.
 * Compatibility - Tested with WordPress 6.9.4 and WooCommerce 10.6.1.

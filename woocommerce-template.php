@@ -6,6 +6,10 @@
  * @since 1.0.0
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 if ( ! function_exists( 'dp_is_discontinued' ) ) {
 
 	/**
@@ -127,7 +131,7 @@ if ( ! function_exists( 'discontinued_template_loop_price' ) ) {
 			$prod_text_option = get_post_meta( $product_id, '_discontinued_product_text', true );
 			$text_option      = get_option( 'dp_discontinued_text' );
 			$text             = dp_alt_products_text( $prod_text_option, $text_option, __( 'This product has been discontinued.', 'discontinued-products' ) );
-			$price            = $price . '<br>' . $text;
+			$price            = $price . '<br>' . esc_html( $text );
 		}
 		return $price;
 	}
@@ -162,7 +166,10 @@ if ( ! function_exists( 'discontinued_template_price_class' ) ) {
 	 * @return null
 	 */
 	function discontinued_template_price_class( $class ) {
-		$class = $class . ' discontinued';
+		global $product;
+		if ( is_object( $product ) && is_callable( array( $product, 'get_id' ) ) && dp_is_discontinued( $product->get_id() ) ) {
+			$class = $class . ' discontinued';
+		}
 
 		return $class;
 	}

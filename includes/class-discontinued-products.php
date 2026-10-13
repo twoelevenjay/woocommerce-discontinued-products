@@ -6,6 +6,10 @@
  * @since 1.0.0
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 if ( ! class_exists( 'Discontinued_Products' ) ) {
 
 	/**
@@ -74,13 +78,16 @@ if ( ! class_exists( 'Discontinued_Products' ) ) {
 		 * For instance, if you need access to the $woocommerce global
 		 */
 		public function maybe_run_data_updater() {
+			if ( ! is_admin() || ! current_user_can( 'manage_woocommerce' ) ) {
+				return;
+			}
 			if ( isset( $_GET['do_update_dp'] ) && check_admin_referer( 'dp_update_nonce', '_wpnonce' ) ) {
 				// Run the data updater.
 				self::$background_process->start();
 				set_transient( 'do_update_dp', 'updating', 0 );
 				return;
 			}
-			if ( isset( $_GET['wc-hide-notice'] ) && 'dp_updated' === $_GET['wc-hide-notice'] ) {
+			if ( isset( $_GET['wc-hide-notice'], $_GET['_wc_notice_nonce'] ) && 'dp_updated' === $_GET['wc-hide-notice'] && wp_verify_nonce( sanitize_key( wp_unslash( $_GET['_wc_notice_nonce'] ) ), 'woocommerce_hide_notices_nonce' ) ) {
 				delete_transient( 'do_update_dp' );
 				return;
 			}
@@ -93,6 +100,10 @@ if ( ! class_exists( 'Discontinued_Products' ) ) {
 		 * If we need to update the data, include a message with the data update button.
 		 */
 		public static function update_notice() {
+
+			if ( ! current_user_can( 'manage_woocommerce' ) ) {
+				return;
+			}
 
 			$update_dp_transient = get_transient( 'do_update_dp' );
 			// Check if any products have legacy meta keys.
