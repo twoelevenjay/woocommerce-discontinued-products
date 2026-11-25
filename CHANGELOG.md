@@ -2,6 +2,9 @@
 
 ## Changelog
 
+### 2.0.10 11.25.2026
+* Compatibility - Tested with WordPress 7.2.
+
 ### 2.0.9 10.13.2026
 * Fixed - Hide from shop now also applies to product tag and attribute archive pages, not only the shop and category pages.
 * Fixed - Hide from search now also applies to the general site search, not only the product search.
